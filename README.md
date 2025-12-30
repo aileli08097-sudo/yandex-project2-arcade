@@ -1,0 +1,1 @@
+# yandex-project2-arcade
