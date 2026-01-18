@@ -10,7 +10,6 @@ from StartGameView import StartGameView
 
 
 def make_trail(attached_sprite, maintain=60):
-    # «След за объектом»: поддерживаем постоянное число частиц
     emit = Emitter(
         center_xy=(attached_sprite.center_x, attached_sprite.center_y),
         emit_controller=EmitMaintainCount(maintain),
@@ -22,7 +21,7 @@ def make_trail(attached_sprite, maintain=60):
             scale=random.uniform(0.25, 0.4),
         ),
     )
-    # Хитрость: каждое обновление будем прижимать центр к спрайту (см. ниже)
+
     emit._attached = attached_sprite
     return emit
 
@@ -64,7 +63,17 @@ class MenuView(arcade.View):
             'images/aliens/alienPink_badge1.png',
             'images/aliens/alienYellow_badge1.png'
         ]
-        self.player_texture = random.choice(self.player_textures)
+        self.player_texture = random.randint(0, 4)
+        self.players = [
+            'images/aliens/alienBeige.png',
+            'images/aliens/alienBlue.png',
+            'images/aliens/alienGreen.png',
+            'images/aliens/alienPink.png',
+            'images/aliens/alienYellow.png'
+        ]
+        self.player = arcade.Sprite(self.players[self.player_texture])
+        self.player.center_x = 100
+        self.player.center_y = 100
 
         self.all_sprites = arcade.SpriteList()
 
@@ -78,7 +87,7 @@ class MenuView(arcade.View):
             'images/planets/planet06.png',
             'images/planets/planet09.png',
         ]
-        self.planet = 'Первый'
+        self.planet = 0
 
         self.text = arcade.Text("Нажми любую клавишу, чтобы начать", self.window.width / 2,
                                 self.window.height / 4 - 100,
@@ -224,16 +233,14 @@ class MenuView(arcade.View):
                 self.emitters.append(trail)
             v = 280 * delta_time
 
-            # Создаем копии списков для безопасной итерации
             players_to_remove = []
 
-            for i in range(len(self.star_sprites) - 1, -1, -1):  # Идем в обратном порядке
+            for i in range(len(self.star_sprites) - 1, -1, -1):
                 if self.trail_list[i].left:  self.star_sprites[i].center_x -= v
                 if self.trail_list[i].right: self.star_sprites[i].center_x += v
                 if self.trail_list[i].up:    self.star_sprites[i].center_y += v
                 if self.trail_list[i].down:  self.star_sprites[i].center_y -= v
 
-                # Подкручиваем центр «следа» к игроку
                 if i < len(self.emitters):
                     self.emitters[i].center_x = self.star_sprites[i].center_x
                     self.emitters[i].center_y = self.star_sprites[i].center_y
@@ -241,7 +248,6 @@ class MenuView(arcade.View):
                 if self.star_sprites[i].center_y < -50:
                     players_to_remove.append(i)
 
-            # Удаляем помеченные спрайты
             for i in sorted(players_to_remove, reverse=True):
                 if i < len(self.trail_list):
                     self.trail_list.pop(i)
@@ -250,7 +256,6 @@ class MenuView(arcade.View):
                 if i < len(self.star_sprites):
                     self.star_sprites.pop(i)
 
-            # Обновляем эмиттеры и чистим «умершие»
             emitters_copy = self.emitters.copy()
             for e in emitters_copy:
                 e.update(delta_time)
@@ -274,30 +279,13 @@ class MenuView(arcade.View):
     def on_change(self, event):
         i = self.option_list.index(self.dropdown.value)
         if i:
-            self.player_texture = self.player_textures[i - 1]
+            self.player_texture = i - 1
+        self.player = arcade.Sprite(self.players[self.player_texture])
 
     def on_change1(self, event):
-        self.planet = self.dropdown1.value
+        self.planet = self.option_list1.index(self.dropdown1.value)
 
     def on_key_press(self, key, modifiers):
         self.menu = False
-        start_game_view = StartGameView()
-        start_game_view.setup(level=self.planet, player=self.player_texture)
+        start_game_view = StartGameView(level=self.planet, player=self.player)
         self.window.show_view(start_game_view)
-
-
-def setup_game(width=SCREEN_WIDTH, height=SCREEN_HEIGHT, title="Choose Me"):
-    game = arcade.Window(width, height, title)
-    return game
-
-
-def main():
-    window = setup_game()
-    menu_view = MenuView()
-    menu_view.setup()
-    window.show_view(menu_view)
-    arcade.run()
-
-
-if __name__ == "__main__":
-    main()
