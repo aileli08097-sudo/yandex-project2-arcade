@@ -20,13 +20,16 @@ class GameOverView(arcade.View):
                              self.window.height),
             (0, 0, 0, 180)
         )
-        self.main_text = arcade.Text("ПОРАЖЕНИЕ", self.window.width / 2, self.window.height / 2,
+        self.main_text = arcade.Text("ПОБЕДА", self.window.width / 2, self.window.height / 2,
                                      arcade.color.WHITE, font_size=30, anchor_x="center", batch=self.batch)
-        self.space_text = arcade.Text("Чтобы начать заново, нажмите SPACE", self.window.width / 2,
-                                      self.window.height / 2 - 50,
+        self.space_text = arcade.Text("Чтобы перейти к следующему уровню, нажмите SPACE", self.window.width / 2,
+                                      self.window.height / 2 - 100,
                                       arcade.color.WHITE, font_size=20, anchor_x="center", batch=self.batch)
         self.space_text1 = arcade.Text("Чтобы выйти в меню, нажмите ESC", self.window.width / 2,
-                                       self.window.height / 2 - 100,
+                                       self.window.height / 2 - 150,
+                                       arcade.color.WHITE, font_size=20, anchor_x="center", batch=self.batch)
+        self.space_text2 = arcade.Text("Чтобы переиграть, нажмите Q", self.window.width / 2,
+                                       self.window.height / 2 - 50,
                                        arcade.color.WHITE, font_size=20, anchor_x="center", batch=self.batch)
         self.batch.draw()
 
@@ -37,6 +40,10 @@ class GameOverView(arcade.View):
             menu_view.setup()
             self.window.show_view(menu_view)
         elif key == arcade.key.SPACE:
+            from StartGameView import StartGameView
+            start_game_view = StartGameView(level=self.level + 1, player=self.player)
+            self.window.show_view(start_game_view)
+        elif key == arcade.key.Q:
             from StartGameView import StartGameView
             start_game_view = StartGameView(level=self.level, player=self.player)
             self.window.show_view(start_game_view)

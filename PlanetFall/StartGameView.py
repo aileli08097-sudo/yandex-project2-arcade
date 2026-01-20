@@ -9,6 +9,8 @@ class StartGameView(arcade.View):
         self.timer = 0
         self.level = level
         self.player = player
+        self.player.center_x = 100
+        self.player.center_y = 1700
         self.batch = Batch()
         self.planet_textures = [
             'images/planets/planet00.png',
@@ -80,4 +82,5 @@ class StartGameView(arcade.View):
             if self.timer > 2.5:
                 self.start = True
                 level_view = Level(saved_state=self.saved_state)
+                level_view.setup()
                 self.window.show_view(level_view)

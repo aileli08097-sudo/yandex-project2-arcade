@@ -22,7 +22,7 @@ class PauseView(arcade.View):
         )
         self.main_text = arcade.Text("Уровень приостановлен", self.window.width / 2, self.window.height / 2,
                                      arcade.color.WHITE, font_size=30, anchor_x="center", batch=self.batch)
-        self.space_text = arcade.Text("Чтобы начать заново, нажмите SPACE", self.window.width / 2,
+        self.space_text = arcade.Text("Чтобы продолжить, нажмите SPACE", self.window.width / 2,
                                       self.window.height / 2 - 50,
                                       arcade.color.WHITE, font_size=20, anchor_x="center", batch=self.batch)
         self.space_text1 = arcade.Text("Чтобы выйти в меню, нажмите ESC", self.window.width / 2,

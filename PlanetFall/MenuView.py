@@ -72,8 +72,6 @@ class MenuView(arcade.View):
             'images/aliens/alienYellow.png'
         ]
         self.player = arcade.Sprite(self.players[self.player_texture])
-        self.player.center_x = 100
-        self.player.center_y = 100
 
         self.all_sprites = arcade.SpriteList()
 
