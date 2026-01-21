@@ -1,14 +1,14 @@
 import arcade
 from pyglet.graphics import Batch
-from level import Level
 
 
 class StartGameView(arcade.View):
-    def __init__(self, level: int, player: arcade.Sprite):
+    def __init__(self, level: int, player_num: int, player: arcade.Sprite):
         super().__init__()
         self.timer = 0
         self.level = level
         self.player = player
+        self.player_num = player_num
         self.player.center_x = 100
         self.player.center_y = 1700
         self.batch = Batch()
@@ -67,6 +67,7 @@ class StartGameView(arcade.View):
             sprite.scale = 0.5
         self.saved_state = {'level': self.level,
                             'player': self.player,
+                            'player_num': self.player_num,
                             'enemies': arcade.SpriteList(),
                             'items': arcade.SpriteList()}
 
@@ -79,8 +80,30 @@ class StartGameView(arcade.View):
     def on_update(self, delta_time):
         if not self.start:
             self.timer += delta_time
-            if self.timer > 2.5:
+            if self.timer > 2.0:
                 self.start = True
-                level_view = Level(saved_state=self.saved_state)
-                level_view.setup()
-                self.window.show_view(level_view)
+                if self.level == 0:
+                    from PlanetFall.levels.level_0 import Level_0
+                    level_view = Level_0(saved_state=self.saved_state)
+                    level_view.setup()
+                    self.window.show_view(level_view)
+                elif self.level == 1:
+                    from PlanetFall.levels.level_1 import Level_1
+                    level_view = Level_1(saved_state=self.saved_state)
+                    level_view.setup()
+                    self.window.show_view(level_view)
+                elif self.level == 2:
+                    from PlanetFall.levels.level_2 import Level_2
+                    level_view = Level_2(saved_state=self.saved_state)
+                    level_view.setup()
+                    self.window.show_view(level_view)
+                elif self.level == 3:
+                    from PlanetFall.levels.level_3 import Level_3
+                    level_view = Level_3(saved_state=self.saved_state)
+                    level_view.setup()
+                    self.window.show_view(level_view)
+                elif self.level == 4:
+                    from PlanetFall.levels.level_4 import Level_4
+                    level_view = Level_4(saved_state=self.saved_state)
+                    level_view.setup()
+                    self.window.show_view(level_view)

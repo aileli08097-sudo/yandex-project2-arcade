@@ -3,10 +3,11 @@ from pyglet.graphics import Batch
 
 
 class GameOverView(arcade.View):
-    def __init__(self, game_view, level, player):
+    def __init__(self, game_view, level, player_num, player):
         super().__init__()
         self.level = level
         self.player = player
+        self.player_num = player_num
         self.background_view = game_view
         self.batch = Batch()
 
@@ -22,7 +23,7 @@ class GameOverView(arcade.View):
         )
         self.main_text = arcade.Text("ПОРАЖЕНИЕ", self.window.width / 2, self.window.height / 2,
                                      arcade.color.WHITE, font_size=30, anchor_x="center", batch=self.batch)
-        self.space_text = arcade.Text("Чтобы начать заново, нажмите SPACE", self.window.width / 2,
+        self.space_text = arcade.Text("Чтобы начать заново, нажмите P", self.window.width / 2,
                                       self.window.height / 2 - 50,
                                       arcade.color.WHITE, font_size=20, anchor_x="center", batch=self.batch)
         self.space_text1 = arcade.Text("Чтобы выйти в меню, нажмите ESC", self.window.width / 2,
@@ -36,7 +37,7 @@ class GameOverView(arcade.View):
             menu_view = MenuView()
             menu_view.setup()
             self.window.show_view(menu_view)
-        elif key == arcade.key.SPACE:
+        elif key == arcade.key.P:
             from StartGameView import StartGameView
-            start_game_view = StartGameView(level=self.level, player=self.player)
+            start_game_view = StartGameView(level=self.level, player_num=self.player_num, player=self.player)
             self.window.show_view(start_game_view)

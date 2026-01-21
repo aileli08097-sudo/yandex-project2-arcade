@@ -53,7 +53,7 @@ class MenuView(arcade.View):
         self.batch = Batch()
         self.main_text = arcade.Text("Главное Меню", self.window.width / 2, self.window.height - 50,
                                      arcade.color.WHITE, font_size=30, anchor_x="center", batch=self.batch)
-        self.space_text = arcade.Text("Выбери героя!", self.window.width / 4,
+        self.space_text = arcade.Text("Выберите героя", self.window.width / 4,
                                       self.window.height - 100,
                                       arcade.color.WHITE, font_size=20, anchor_x="center", batch=self.batch)
         self.player_textures = [
@@ -63,19 +63,19 @@ class MenuView(arcade.View):
             'images/aliens/alienPink_badge1.png',
             'images/aliens/alienYellow_badge1.png'
         ]
-        self.player_texture = random.randint(0, 4)
+        self.player_num = random.randint(0, 4)
         self.players = [
-            'images/aliens/alienBeige.png',
-            'images/aliens/alienBlue.png',
-            'images/aliens/alienGreen.png',
-            'images/aliens/alienPink.png',
-            'images/aliens/alienYellow.png'
+            'images/Alien0/alien0_4.png',
+            'images/Alien1/alien1_4.png',
+            'images/Alien2/alien2_4.png',
+            'images/Alien3/alien3_4.png',
+            'images/Alien4/alien4_4.png'
         ]
-        self.player = arcade.Sprite(self.players[self.player_texture])
+        self.player = arcade.Sprite(self.players[self.player_num])
 
         self.all_sprites = arcade.SpriteList()
 
-        self.space_text1 = arcade.Text("Выбери уровень!", self.window.width * 3 / 4,
+        self.space_text1 = arcade.Text("Выберите уровень", self.window.width * 3 / 4,
                                        self.window.height - 100,
                                        arcade.color.WHITE, font_size=20, anchor_x="center", batch=self.batch)
         self.planet_textures = [
@@ -87,7 +87,7 @@ class MenuView(arcade.View):
         ]
         self.planet = 0
 
-        self.text = arcade.Text("Нажми любую клавишу, чтобы начать", self.window.width / 2,
+        self.text = arcade.Text("Нажмите любую клавишу, чтобы начать", self.window.width / 2,
                                 self.window.height / 4 - 100,
                                 arcade.color.WHITE, font_size=20, anchor_x="center", batch=self.batch)
 
@@ -277,13 +277,13 @@ class MenuView(arcade.View):
     def on_change(self, event):
         i = self.option_list.index(self.dropdown.value)
         if i:
-            self.player_texture = i - 1
-        self.player = arcade.Sprite(self.players[self.player_texture])
+            self.player_num = i - 1
+        self.player = arcade.Sprite(self.players[self.player_num])
 
     def on_change1(self, event):
         self.planet = self.option_list1.index(self.dropdown1.value)
 
     def on_key_press(self, key, modifiers):
         self.menu = False
-        start_game_view = StartGameView(level=self.planet, player=self.player)
+        start_game_view = StartGameView(level=self.planet, player_num=self.player_num, player=self.player)
         self.window.show_view(start_game_view)
