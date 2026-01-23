@@ -3,8 +3,7 @@ from PlanetFall.PauseView import PauseView
 from arcade import Camera2D
 from pyglet.graphics import Batch
 import random
-from PlanetFall.constants import TILE_SIZE, CAMERA_LERP, GRAVITY, COYOTE_TIME, JUMP_SPEED, PLAYER_SPEED, MAX_JUMPS, \
-    SCREEN_WIDTH, SCREEN_HEIGHT, JUMP_BUFFER, ANIMATION_TIMER
+from PlanetFall.constants import *
 
 
 class DustParticle(arcade.SpriteCircle):
@@ -63,7 +62,8 @@ class Level(arcade.View):
 
         self.enemies_list = saved_state.get('enemies', arcade.SpriteList())
         self.items_list = saved_state.get('items', arcade.SpriteList())
-        self.d_items_list = arcade.SpriteList()
+        self.coll_items_list = saved_state.get('coll_items', arcade.SpriteList())
+        self.dont_items_list = arcade.SpriteList()
         self.textures = [f'images/Alien{self.player_num}/alien{self.player_num}_{i}.png' for i in range(10)]
 
         self.timer = 0
@@ -135,10 +135,7 @@ class Level(arcade.View):
             return
         self.timer += delta_time
         self.animation_timer += delta_time
-        if self.animation_timer >= self.anim_time:
-            self.animation_timer = 0
-            self.i += 1
-            self.i %= 2
+
         for e in self.dust_particles:
             e.update(delta_time)
         if self.player.center_x < self.player.width - 10:
@@ -152,24 +149,6 @@ class Level(arcade.View):
 
         self.player.change_x = move
 
-        target_x = self.player.center_x
-        target_y = self.player.center_y
-
-        cx, cy = self.world_camera.position
-        smooth_x = cx + (target_x - cx) * CAMERA_LERP
-        smooth_y = cy + (target_y - cy) * CAMERA_LERP
-
-        half_w = self.world_camera.viewport_width / 2
-        half_h = self.world_camera.viewport_height / 2
-        world_w = 1932 * 3
-        world_h = 1134 * 3
-
-        cam_x = max(half_w, min(world_w - half_w, smooth_x))
-        cam_y = max(half_h, min(world_h - half_h, smooth_y))
-
-        self.world_camera.position = (cam_x, cam_y)
-        self.gui_camera.position = (SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
-
     def pause_game(self):
         self.paused = True
 
@@ -177,7 +156,8 @@ class Level(arcade.View):
                        'player': self.player,
                        'player_num': self.player_num,
                        'enemies': self.enemies_list,
-                       'items': self.items_list}
+                       'items': self.items_list,
+                       'coll_items': self.coll_items_list}
 
         pause_view = PauseView(game_view=self, game_state=saved_state)
         self.window.show_view(pause_view)
@@ -188,6 +168,7 @@ class Level(arcade.View):
         self.player_num = state['player_num']
         self.enemies_list = state['enemies']
         self.items_list = state['items']
+        self.coll_items_list = state['coll_items']
         self.paused = False
 
     def on_key_press(self, key, modifiers):

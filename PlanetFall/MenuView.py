@@ -3,7 +3,7 @@ from dataclasses import dataclass
 import arcade
 from arcade.gui import UIManager, UIAnchorLayout, UIBoxLayout, UILabel, UIDropdown
 from pyglet.graphics import Batch
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT
+from constants import *
 from arcade.particles import FadeParticle, Emitter, EmitMaintainCount
 from pyglet.event import EVENT_HANDLE_STATE
 from StartGameView import StartGameView
@@ -46,7 +46,7 @@ class Star(arcade.Sprite):
 
 
 class MenuView(arcade.View):
-    def __init__(self):
+    def __init__(self, items=arcade.SpriteList(), options=['Первый', 'Второй']):
         super().__init__()
         self.background_color = arcade.color.BLACK
 
@@ -56,6 +56,12 @@ class MenuView(arcade.View):
         self.space_text = arcade.Text("Выберите героя", self.window.width / 4,
                                       self.window.height - 100,
                                       arcade.color.WHITE, font_size=20, anchor_x="center", batch=self.batch)
+        self.enemies_list = arcade.SpriteList()
+        items = items
+        self.items_list = arcade.SpriteList()
+        for x in set(items):
+            self.items_list.append(x)
+        self.option_list1 = options
         self.player_textures = [
             'images/aliens/alienBeige_badge1.png',
             'images/aliens/alienBlue_badge1.png',
@@ -90,6 +96,7 @@ class MenuView(arcade.View):
         self.text = arcade.Text("Нажмите любую клавишу, чтобы начать", self.window.width / 2,
                                 self.window.height / 4 - 100,
                                 arcade.color.WHITE, font_size=20, anchor_x="center", batch=self.batch)
+        self.menu = True
 
     def setup(self):
         for i in range(5):
@@ -194,7 +201,6 @@ class MenuView(arcade.View):
                          )
         self.box_layout1.add(label1)
 
-        self.option_list1 = ["Первый", "Второй", "Третий", 'Четвёртый', 'Пятый']
         self.dropdown1 = UIDropdown(options=self.option_list1, width=200)
         self.dropdown1.on_change = self.on_change1
         self.box_layout1.add(self.dropdown1)
@@ -285,5 +291,11 @@ class MenuView(arcade.View):
 
     def on_key_press(self, key, modifiers):
         self.menu = False
-        start_game_view = StartGameView(level=self.planet, player_num=self.player_num, player=self.player)
+        saved_state = {'level': self.planet,
+                       'player': self.player,
+                       'player_num': self.player_num,
+                       'enemies': self.enemies_list,
+                       'items': self.items_list}
+
+        start_game_view = StartGameView(state=saved_state)
         self.window.show_view(start_game_view)

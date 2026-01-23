@@ -3,11 +3,12 @@ from pyglet.graphics import Batch
 
 
 class GameOverView(arcade.View):
-    def __init__(self, game_view, level, player_num, player):
+    def __init__(self, game_view, state):
         super().__init__()
-        self.level = level
-        self.player = player
-        self.player_num = player_num
+        self.level = state['level']
+        self.player = state['player']
+        self.player_num = state['player_num']
+        self.items = state['items']
         self.background_view = game_view
         self.batch = Batch()
 
@@ -34,10 +35,16 @@ class GameOverView(arcade.View):
     def on_key_press(self, key, modifiers):
         if key == arcade.key.ESCAPE:
             from MenuView import MenuView
-            menu_view = MenuView()
+            menu_view = MenuView(items=self.items)
             menu_view.setup()
             self.window.show_view(menu_view)
         elif key == arcade.key.P:
+            state = {'level': self.level,
+                     'player': self.player,
+                     'player_num': self.player_num,
+                     'enemies': arcade.SpriteList(),
+                     'items': self.items,
+                     'coll_items': arcade.SpriteList()}
             from StartGameView import StartGameView
-            start_game_view = StartGameView(level=self.level, player_num=self.player_num, player=self.player)
+            start_game_view = StartGameView(state=state)
             self.window.show_view(start_game_view)

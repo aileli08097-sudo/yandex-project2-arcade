@@ -3,12 +3,16 @@ from pyglet.graphics import Batch
 
 
 class StartGameView(arcade.View):
-    def __init__(self, level: int, player_num: int, player: arcade.Sprite):
+    def __init__(self, state):
         super().__init__()
         self.timer = 0
-        self.level = level
-        self.player = player
-        self.player_num = player_num
+        self.level = state['level']
+        self.player = state['player']
+        self.player_num = state['player_num']
+        self.items_list = arcade.SpriteList()
+        items = state['items']
+        for x in set(items):
+            self.items_list.append(x)
         self.player.center_x = 100
         self.player.center_y = 1700
         self.batch = Batch()
@@ -65,11 +69,13 @@ class StartGameView(arcade.View):
             sprite.center_y = self.height // 2
             sprite.alpha = 191
             sprite.scale = 0.5
+
         self.saved_state = {'level': self.level,
                             'player': self.player,
                             'player_num': self.player_num,
                             'enemies': arcade.SpriteList(),
-                            'items': arcade.SpriteList()}
+                            'items': self.items_list,
+                            'coll_items': arcade.SpriteList()}
 
     def on_draw(self):
         self.clear()

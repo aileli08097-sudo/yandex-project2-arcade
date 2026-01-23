@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="101" height="54" tilewidth="21" tileheight="21" infinite="0" nextlayerid="9" nextobjectid="1">
+ <tileset firstgid="1" source="../../../../../../PycharmProjects/игры/levels/level_1.tsx"/>
+ <layer id="1" name="ground" width="101" height="54">
+  <data encoding="base64" compression="zlib">
+   eJzt0bENwkAQRNELKATTJrgQukUETsB2dtpZeE+a2Of9YwAAAAAAAAAAAAAAwP96fGytfc6p+/h+77bLpN123nGd+L33njtLtffWbcukHZn1veXg/1JpkkeTPJrk0SSPJnk0yaNJnoomFdMkb5rk7ew/O636jppo0mHVd9REkw6rvqMmmnRY9R010aTDqu+oiSYdVn1HTX67yQtDvk1m
+  </data>
+ </layer>
+ <layer id="7" name="cactus" width="101" height="54">
+  <data encoding="base64" compression="zlib">
+   eJztzbEJAAAIAzB/8P9fvUBQnIRk6tDSCAAAAAAAAAAAAAAAuMljb7LPJm+/AAAAAAAAAAAA+KEAZT8Acw==
+  </data>
+ </layer>
+ <layer id="3" name="water" width="101" height="54">
+  <data encoding="base64" compression="zlib">
+   eJzt0cEJACAAAzH/TuL+C/oVOkBFE+gCvTEAAAAAAAAAAAAAAIDTvHQ/W5fuZ+3vNUnt7zVJ7e81Se3vNUnt7zVJ7e81Se3vNUnt7zVJ7e81Se3vNQEAAACAd2wajUSV
+  </data>
+ </layer>
+ <layer id="2" name="background" width="101" height="54">
+  <data encoding="base64" compression="zlib">
+   eJzt1kEOgjAQBVC4gpfAuPEW3pObGuOGxAgjwQ5t39vAAsgk/f1lGAAAAAAAAADo1SV7AAAIcmYBAM0Z35ca/nPui/sa5v3JmD0AkGEK7P3HxjO3wv2xNvOsyw6zte5Z36Iv14OzE+k84lrp3NLnWBZdzEsveV9qpav4VGuev2Vyb1aj751tL9S6fv9ytvWBvWQZAAAAyngC5cQIwA==
+  </data>
+ </layer>
+ <layer id="4" name="platforms" width="101" height="54">
+  <data encoding="base64" compression="zlib">
+   eJzt1ksKgCAQAFC3dZKuWRfJo2bUKiIQLA3fg9nJMIyfMQQAAAAAAAAAoAVLijVFrFwH/M3cWB6e6XMI4xm17PMmZqy/27PcHL0q0afe/gdD7QJe4u079HaeS9rnxlS7iA+4KwAAAAAAAAAAAMDVBi0kC/8=
+  </data>
+ </layer>
+ <layer id="5" name="ladders" width="101" height="54">
+  <data encoding="base64" compression="zlib">
+   eJzt0QENADAIBDHcgn8FE4CAJ0ur4JKrAgAAAAAAAADSJh3A0ukAFk/u8eQeTwAAAAAAAAAAAAAA+MkDx4sCBQ==
+  </data>
+ </layer>
+ <layer id="6" name="collision" width="101" height="54" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJzt1kEKgzAURVH3v0t30qlohASC/zU5By50kKLJ19LjAAAAAAAAAAASnJeAfrPeGe/eN5xz/W/96PVba6v38C9mnNNu/w9W3eeq+xq12/M80y7ntsMeV9c7w7d1Pd8/Xz6PXqu17l6q1r1+UcJ9pEo6i5T7qGYmecwkj5nkMZM8ZpLHTPKYSZ6KmaSUqvpczOSp+lwkSZIkSZIkjfcDXg+wdw==
+  </data>
+ </layer>
+</map>
