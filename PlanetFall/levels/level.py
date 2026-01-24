@@ -85,6 +85,8 @@ class Level(arcade.View):
         self.coyote_time = COYOTE_TIME
         self.jump_speed = JUMP_SPEED
         self.anim_time = ANIMATION_TIMER
+        self.player_speed = 0
+        self.enemy_speed = 0
 
         self.batch = Batch()
         self.space_text = arcade.Text("Нажмите ESC, чтобы приостановить", 170,
@@ -141,14 +143,6 @@ class Level(arcade.View):
         if self.player.center_x < self.player.width - 10:
             self.player.center_x = self.player.width - 10
 
-        move = 0
-        if self.left and not self.right:
-            move = -PLAYER_SPEED
-        elif self.right and not self.left:
-            move = PLAYER_SPEED
-
-        self.player.change_x = move
-
     def pause_game(self):
         self.paused = True
 
@@ -195,8 +189,3 @@ class Level(arcade.View):
             self.up = False
         elif key in (arcade.key.DOWN, arcade.key.S):
             self.down = False
-        elif key == arcade.key.SPACE:
-            if self.player.change_y > 0 and arcade.check_for_collision_with_list(self.player, self.water_list):
-                self.player.change_y *= 0.65
-            elif self.player.change_y > 0 and not arcade.check_for_collision_with_list(self.player, self.water_list):
-                self.player.change_y *= 0.45

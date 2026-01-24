@@ -46,7 +46,7 @@ class Star(arcade.Sprite):
 
 
 class MenuView(arcade.View):
-    def __init__(self, items=arcade.SpriteList(), options=['Первый', 'Второй']):
+    def __init__(self, items=arcade.SpriteList(), options=['Первый', 'Второй', 'Третий']):
         super().__init__()
         self.background_color = arcade.color.BLACK
 

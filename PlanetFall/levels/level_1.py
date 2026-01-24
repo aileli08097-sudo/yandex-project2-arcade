@@ -19,6 +19,8 @@ class Level_1(Level):
         super().setup()
         self.gravity = 0.7
         self.jump_speed = 25
+        self.player_speed = PLAYER_SPEED
+        self.enemy_speed = ENEMY_SPEED
 
         self.ground_list = self.scene['ground']
         self.water_list = self.scene['water']
@@ -29,12 +31,14 @@ class Level_1(Level):
         self.collision_list = self.scene['collision']
 
         item = arcade.Sprite('images/items/item_2.png', 0.5)
+        item.name = 'item'
         item.center_x = 30 * 21 * 3
         item.center_y = 30 * 21 * 3
         item.scale = 0.7
         item.angle = 90
         self.dont_items_list.append(item)
         item = arcade.Sprite('images/items/item_3.png', 0.5)
+        item.name = 'item'
         item.center_x = 92 * 21 * 3
         item.center_y = 30.5 * 21 * 3
         item.angle = 90
@@ -51,20 +55,20 @@ class Level_1(Level):
                 piranha.typ = 'piranha'
                 piranha.center_x = (10 + i * 5) * 21 * 3
                 piranha.center_y = random.randint(14 * 21 * 3, 24 * 21 * 3)
-                piranha.speed = ENEMY_SPEED * random.choice([-1, 1])
+                piranha.speed = self.enemy_speed * random.choice([-1, 1])
                 self.enemies_list.append(piranha)
-            for i in range(3):
+            for i in range(5):
                 snake = arcade.Sprite('images/enemies/snake.png')
                 snake.typ = 'snake'
                 snake.center_x = random.randint(73 * 21 * 3, 78 * 21 * 3)
                 snake.center_y = 15 * 21 * 3 + snake.height // 2
-                snake.speed = ENEMY_SPEED * random.choice([-1, 1])
+                snake.speed = self.enemy_speed * random.choice([-1, 1])
                 self.enemies_list.append(snake)
                 worm = arcade.Sprite('images/enemies/worm.png')
                 worm.typ = 'worm'
                 worm.center_x = random.randint(73 * 21 * 3, 78 * 21 * 3)
                 worm.center_y = 15 * 21 * 3 + worm.height // 2
-                worm.speed = ENEMY_SPEED * random.choice([-1, 1])
+                worm.speed = self.enemy_speed * random.choice([-1, 1])
                 self.enemies_list.append(worm)
             for i in range(7):
                 snail = arcade.Sprite('images/enemies/snail.png')
@@ -74,7 +78,7 @@ class Level_1(Level):
                                          (84 * 21 * 3, 91 * 21 * 3)])
                 snail.center_x = random.randint(snail.x[0], snail.x[1])
                 snail.center_y = 24 * 21 * 3 + snail.height // 2
-                snail.speed = ENEMY_SPEED * random.choice([-1, 1])
+                snail.speed = self.enemy_speed * random.choice([-1, 1])
                 self.enemies_list.append(snail)
 
         self.physics_engine = arcade.PhysicsEnginePlatformer(
@@ -117,13 +121,14 @@ class Level_1(Level):
             self.snake_i %= 2
             self.worm_i += 1
             self.worm_i %= 2
+
         for enemy in self.enemies_list:
             if enemy.typ == 'piranha':
                 if enemy.bottom < 14 * 21 * 3:
-                    enemy.bottom = 14 * 21 * 3 + 1
+                    enemy.bottom = 14 * 21 * 3 + 3
                     enemy.speed *= -1
                 elif enemy.top > 24 * 21 * 3:
-                    enemy.top = 24 * 21 * 3 - 1
+                    enemy.top = 24 * 21 * 3 - 3
                     enemy.speed *= -1
                 enemy.center_y += enemy.speed * delta_time
                 if enemy.speed < 0:
@@ -132,10 +137,10 @@ class Level_1(Level):
                     enemy.texture = arcade.load_texture('images/enemies/piranha.png')
             elif enemy.typ == 'snake':
                 if enemy.left < 73 * 21 * 3:
-                    enemy.left = 73 * 21 * 3 + 1
+                    enemy.left = 73 * 21 * 3 + 3
                     enemy.speed *= -1
                 elif enemy.right > 78 * 21 * 3:
-                    enemy.right = 78 * 21 * 3 - 1
+                    enemy.right = 78 * 21 * 3 - 3
                     enemy.speed *= -1
                 enemy.center_x += enemy.speed * delta_time
                 if enemy.speed < 0:
@@ -144,10 +149,10 @@ class Level_1(Level):
                     enemy.texture = arcade.load_texture(self.snakes[self.snake_i]).flip_horizontally()
             elif enemy.typ == 'worm':
                 if enemy.left < 73 * 21 * 3:
-                    enemy.left = 73 * 21 * 3 + 1
+                    enemy.left = 73 * 21 * 3 + 3
                     enemy.speed *= -1
                 elif enemy.right > 78 * 21 * 3:
-                    enemy.right = 78 * 21 * 3 - 1
+                    enemy.right = 78 * 21 * 3 - 3
                     enemy.speed *= -1
                 enemy.center_x += enemy.speed * delta_time
                 if enemy.speed < 0:
@@ -156,10 +161,10 @@ class Level_1(Level):
                     enemy.texture = arcade.load_texture(self.worms[self.worm_i]).flip_horizontally()
             elif enemy.typ == 'snail':
                 if enemy.left < enemy.x[0]:
-                    enemy.left = enemy.x[0] + 1
+                    enemy.left = enemy.x[0] + 3
                     enemy.speed *= -1
                 elif enemy.right > enemy.x[1]:
-                    enemy.right = enemy.x[1] - 1
+                    enemy.right = enemy.x[1] - 3
                     enemy.speed *= -1
                 enemy.center_x += enemy.speed * delta_time
                 if enemy.speed < 0:
@@ -167,7 +172,15 @@ class Level_1(Level):
                 else:
                     enemy.texture = arcade.load_texture('images/enemies/snail.png').flip_horizontally()
 
-        if self.player.center_x > (2121 * 3) - self.player.width:
+        move = 0
+        if self.left and not self.right:
+            move = -self.player_speed
+        elif self.right and not self.left:
+            move = self.player_speed
+
+        self.player.change_x = move
+
+        if self.player.center_x > (2121 * 3) - self.player.width // 2:
             self.win = True
             state = {'level': self.level,
                      'player': self.player,
@@ -195,15 +208,15 @@ class Level_1(Level):
 
         on_ladder = self.physics_engine.is_on_ladder()
         if on_ladder:
+            self.player.texture = arcade.load_texture(self.textures[0])
             if self.up and not self.down:
-                self.player.change_y = PLAYER_SPEED
+                self.player.change_y = self.player_speed
                 self.player.texture = arcade.load_texture(self.textures[self.i])
             elif self.down and not self.up:
-                self.player.change_y = -PLAYER_SPEED
+                self.player.change_y = -self.player_speed
                 self.player.texture = arcade.load_texture(self.textures[self.i])
             else:
                 self.player.change_y = 0
-                self.player.texture = arcade.load_texture(self.textures[0])
 
         grounded = self.physics_engine.can_jump(y_distance=6)
         if grounded:
@@ -282,3 +295,11 @@ class Level_1(Level):
         for i in range(random.randint(15, 21)):
             e = DustParticle(self.player.center_x, self.player.bottom)
             self.dust_particles.append(e)
+
+    def on_key_release(self, key, modifiers):
+        super().on_key_release(key, modifiers)
+        if key == arcade.key.SPACE:
+            if self.player.change_y > 0 and arcade.check_for_collision_with_list(self.player, self.water_list):
+                self.player.change_y *= 0.65
+            elif self.player.change_y > 0 and not arcade.check_for_collision_with_list(self.player, self.water_list):
+                self.player.change_y *= 0.45

@@ -11,7 +11,7 @@
    eJztzbEJAAAIAzB/8P9fvUBQnIRk6tDSCAAAAAAAAAAAAAAAuMljb7LPJm+/AAAAAAAAAAAA+KEAZT8Acw==
   </data>
  </layer>
- <layer id="3" name="water" width="101" height="54">
+ <layer id="3" name="water" width="101" height="54" opacity="0.73">
   <data encoding="base64" compression="zlib">
    eJzt0cEJACAAAzH/TuL+C/oVOkBFE+gCvTEAAAAAAAAAAAAAAIDTvHQ/W5fuZ+3vNUnt7zVJ7e81Se3vNUnt7zVJ7e81Se3vNUnt7zVJ7e81Se3vNQEAAACAd2wajUSV
   </data>
@@ -23,7 +23,7 @@
  </layer>
  <layer id="4" name="platforms" width="101" height="54">
   <data encoding="base64" compression="zlib">
-   eJzt1ksKgCAQAFC3dZKuWRfJo2bUKiIQLA3fg9nJMIyfMQQAAAAAAAAAoAVLijVFrFwH/M3cWB6e6XMI4xm17PMmZqy/27PcHL0q0afe/gdD7QJe4u079HaeS9rnxlS7iA+4KwAAAAAAAAAAAMDVBi0kC/8=
+   eJzt1ksKgCAQANDZ1km6Zl0kj5rRLiIQLAvfg9nJOPgbIwAAAAAAAACAL1hyrDlS4zrgb+aP5eGedY4Yc0wN59/7TSoYf7VnpTl6VWOdevsfDK0LeIi379Dbea6pde94i7sCAAAAAAAAAAAAnG2+bwwd
   </data>
  </layer>
  <layer id="5" name="ladders" width="101" height="54">

@@ -19,15 +19,37 @@ class WinView(arcade.View):
         shadow.center_y = self.height // 2 + 200
         self.all_sprites.append(shadow)
         for item in self.items:
-            item.scale = 0.3
-            item.center_x = self.width // 2
-            item.center_y = self.height // 2 + 200
-            self.all_sprites.append(item)
+            if item.name == 'petrol1':
+                item.scale = 0.1
+                item.center_x = self.width // 2 + 100
+                item.center_y = self.height // 2 + 200
+                self.all_sprites.append(item)
+            elif item.name == 'petrol2':
+                item.scale = 0.1
+                item.center_x = self.width // 2 + 300
+                item.center_y = self.height // 2 + 200
+                self.all_sprites.append(item)
+            else:
+                item.scale = 0.3
+                item.center_x = self.width // 2
+                item.center_y = self.height // 2 + 200
+                self.all_sprites.append(item)
         for item in self.coll_items:
-            item.scale = 0.3
-            item.center_x = self.width // 2
-            item.center_y = self.height // 2 + 200
-            self.all_sprites.append(item)
+            if item.name == 'petrol1':
+                item.scale = 0.1
+                item.center_x = self.width // 2 + 100
+                item.center_y = self.height // 2 + 200
+                self.all_sprites.append(item)
+            elif item.name == 'petrol2':
+                item.scale = 0.1
+                item.center_x = self.width // 2 + 150
+                item.center_y = self.height // 2 + 200
+                self.all_sprites.append(item)
+            else:
+                item.scale = 0.3
+                item.center_x = self.width // 2
+                item.center_y = self.height // 2 + 200
+                self.all_sprites.append(item)
 
     def on_draw(self):
         self.clear()

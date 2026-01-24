@@ -18,6 +18,8 @@ class Level_0(Level):
         super().setup()
         self.gravity = GRAVITY
         self.jump_speed = JUMP_SPEED
+        self.player_speed = PLAYER_SPEED
+        self.enemy_speed = ENEMY_SPEED
 
         self.ground_list = self.scene['ground']
         self.water_list = self.scene['water']
@@ -27,10 +29,12 @@ class Level_0(Level):
         self.collision_list = self.scene['collision']
 
         item = arcade.Sprite('images/items/item_0.png', 0.5)
+        item.name = 'item'
         item.center_x = 44 * 21 * 3
         item.center_y = 12 * 21 * 3
         self.dont_items_list.append(item)
         item = arcade.Sprite('images/items/item_1.png', 0.5)
+        item.name = 'item'
         item.center_x = 65 * 21 * 3
         item.center_y = 31 * 21 * 3
         self.dont_items_list.append(item)
@@ -39,12 +43,12 @@ class Level_0(Level):
             self.ghost = arcade.Sprite('images/enemies/ghost.png')
             self.ghost.center_x = random.randint(78 * 21 * 3, 88 * 21 * 3)
             self.ghost.center_y = 24 * 21 * 3 + self.ghost.height
-            self.ghost.speed = ENEMY_SPEED * random.choice([-1, 1])
+            self.ghost.speed = self.enemy_speed * random.choice([-1, 1])
             self.enemies_list.append(self.ghost)
             self.fish = arcade.Sprite('images/enemies/fishPink.png')
             self.fish.center_x = random.randint(24 * 21 * 3, 43 * 21 * 3)
             self.fish.center_y = 12 * 21 * 3 + self.fish.height
-            self.fish.speed = ENEMY_SPEED * random.choice([-1, 1])
+            self.fish.speed = self.enemy_speed * random.choice([-1, 1])
             self.enemies_list.append(self.fish)
 
         self.physics_engine = arcade.PhysicsEnginePlatformer(
@@ -81,22 +85,24 @@ class Level_0(Level):
             self.animation_timer = 0
             self.i += 1
             self.i %= 2
+
         if self.ghost.left < 78 * 21 * 3:
-            self.ghost.left = 78 * 21 * 3 + 1
+            self.ghost.left = 78 * 21 * 3 + 3
             self.ghost.speed *= -1
         elif self.ghost.right > 88 * 21 * 3:
-            self.ghost.right = 88 * 21 * 3 - 1
+            self.ghost.right = 88 * 21 * 3 - 3
             self.ghost.speed *= -1
         self.ghost.center_x += self.ghost.speed * delta_time
         if self.ghost.speed < 0:
             self.ghost.texture = arcade.load_texture('images/enemies/ghost.png')
         else:
             self.ghost.texture = arcade.load_texture('images/enemies/ghost.png').flip_horizontally()
+
         if self.fish.left < 24 * 21 * 3:
-            self.fish.left = 24 * 21 * 3 + 1
+            self.fish.left = 24 * 21 * 3 + 3
             self.fish.speed *= -1
         elif self.fish.right > 43 * 21 * 3:
-            self.fish.right = 43 * 21 * 3 - 1
+            self.fish.right = 43 * 21 * 3 - 3
             self.fish.speed *= -1
         self.fish.center_x += self.fish.speed * delta_time
         if self.fish.speed < 0:
@@ -104,7 +110,15 @@ class Level_0(Level):
         else:
             self.fish.texture = arcade.load_texture('images/enemies/fishPink.png').flip_horizontally()
 
-        if self.player.center_x > (1932 * 3) - self.player.width:
+        move = 0
+        if self.left and not self.right:
+            move = -self.player_speed
+        elif self.right and not self.left:
+            move = self.player_speed
+
+        self.player.change_x = move
+
+        if self.player.center_x > (1932 * 3) - self.player.width // 2:
             self.win = True
             state = {'level': self.level,
                      'player': self.player,
@@ -145,12 +159,11 @@ class Level_0(Level):
         if on_ladder:
             self.player.texture = arcade.load_texture(self.textures[0])
             if self.up and not self.down:
-                self.player.change_y = PLAYER_SPEED
+                self.player.change_y = self.player_speed
                 self.player.texture = arcade.load_texture(self.textures[self.i])
             elif self.down and not self.up:
-                self.player.change_y = -PLAYER_SPEED
+                self.player.change_y = -self.player_speed
                 self.player.texture = arcade.load_texture(self.textures[self.i])
-
             else:
                 self.player.change_y = 0
 
@@ -232,3 +245,11 @@ class Level_0(Level):
         for i in range(random.randint(15, 21)):
             e = DustParticle(self.player.center_x, self.player.bottom)
             self.dust_particles.append(e)
+
+    def on_key_release(self, key, modifiers):
+        super().on_key_release(key, modifiers)
+        if key == arcade.key.SPACE:
+            if self.player.change_y > 0 and arcade.check_for_collision_with_list(self.player, self.water_list):
+                self.player.change_y *= 0.65
+            elif self.player.change_y > 0 and not arcade.check_for_collision_with_list(self.player, self.water_list):
+                self.player.change_y *= 0.45

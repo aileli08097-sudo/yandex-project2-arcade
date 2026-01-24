@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="101" height="54" tilewidth="21" tileheight="21" infinite="0" nextlayerid="11" nextobjectid="1">
+ <tileset firstgid="1" source="../../../../../../PycharmProjects/игры/levels/level_1.tsx"/>
+ <tileset firstgid="901" source="../../../../../../PycharmProjects/игры/levels/level_2.tsx"/>
+ <layer id="2" name="walls" width="101" height="54" opacity="0.57">
+  <data encoding="base64" compression="zlib">
+   eJzt0cEJgAAQA0Et0P7bsYAD0Y+3jxlIA9njAAAAAAAAAAAAAAAAnlyn/TlNetOkN01606Q3TXrTpDdNetOkN01606Q3TXrTpDdN3v9Qsv2XJtP2X5pM239pMm3/pcm0/Zcm0/ZfmgDAdzeV0eYK
+  </data>
+ </layer>
+ <layer id="6" name="background" width="101" height="54">
+  <data encoding="base64" compression="zlib">
+   eJzt1bEJACEUREHF/uvQWszt57JLTATBjzhTwWOTTQkAAAAAAAAAAAAAgONydMDj7A/wGyW6AADWdJ8FwIYaHcCkRQcAAAAAcIUPP7YC9w==
+  </data>
+ </layer>
+ <layer id="1" name="ground" width="101" height="54">
+  <data encoding="base64" compression="zlib">
+   eJztlNENgjAUACEMpCau4Y9LGZ3AX1kAHYAJXEV3kEYJtaH0vVIShbvkIiFAwjsfWQYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsFzWedhtLn/eSvC8ObsJzEoyn53AvbIL+JHMWypd0pCyCV3SkLoJXcYzRRO6jEM762MhO7f0LlXRqSV2D3wd6PLuUFpqu8Q0MMe+fem77tx4ivi//AsX693qotNuouki7TGk5Jq5djE97Cb3niZ1ZBN7tn3nfLvh7sdQpzl1uX7ew21it7B7tJ0kpNyTpeyL6eFr0u5JWXx/x9o2kn0J7Yhm3r+yL7fIZz+a+56Be9seoSZul8r5HWLo26PpoO1muhywV83MQ7PXNsT00uA/pBMiIiIiIk7pC0piEOc=
+  </data>
+ </layer>
+ <layer id="3" name="stakes" width="101" height="54">
+  <data encoding="base64" compression="zlib">
+   eJzt2LENABAUBFCJ/RcxgfG0IvxCaHivk3OnlxIAAAAAAAAAAAAAAMA/St7PojzqjL3+3N+Z7c+6q81xFwAAAOCmGvw/RNnptwAAAAB4VwPiRA8J
+  </data>
+ </layer>
+ <layer id="4" name="ladders" width="101" height="54">
+  <data encoding="base64" compression="zlib">
+   eJzt0bEJwDAQBEGB+i/DbkAu0LnCB8v3MJMfHOwYAAAAAAAAAAAAAAAA37vm3w/YLU3iaJJHkzzdm9yF/5XNSd2bPIX/lc1JmuTRJI8meTTJo0keTfJ0bwIAAADQwQt3dRSF
+  </data>
+ </layer>
+ <layer id="5" name="platforms" width="101" height="54">
+  <data encoding="base64" compression="zlib">
+   eJzt1rEJwDAMBECB1o8XiOfJAp7IjYMKQ6oQUtzBN4KvvlEEAAAAAAAAAAAAAAAAAPCVlhHnSs+6X1m5Hbn3AQCeDP/DL9gBAAAAAN4xAX+1Bvo=
+  </data>
+ </layer>
+ <layer id="7" name="background2" width="101" height="54">
+  <data encoding="base64" compression="zlib">
+   eJzt1k0KwjAQBtCC97+ER3Hp3n+7bheKGw9glkVKHWzFJLwH3ZQpId+kTJoGAAAAAAAAAAAAAAAAoC77VaxuF6zL2SGwh8dIzSW9u6anrSCDuZ6FZzB13rcL721qrWPhOULUuvCzHp2RS6th5ubqvafngrIeu8f8ep78Y+73gzXn/guRux+fneSYhc2gD90XPbmlb+56CQAAAFC9F7gvGCs=
+  </data>
+ </layer>
+ <layer id="8" name="acid" width="101" height="54">
+  <data encoding="base64" compression="zlib">
+   eJzt1zEKwCAMBdCA92+Lc7FXrYuLuAgZHN6DbCFj8hMBAAAAAAAAAAAAAADA7CsRrez1Z3kTZwEMj91ynJ07AwAArF09V9+9qnx9HD8PAAAAkOEHV9sGEg==
+  </data>
+ </layer>
+ <layer id="10" name="spinner" width="101" height="54">
+  <data encoding="base64" compression="zlib">
+   eJztz7ENADAIwDAk/v+Ls/pBByYE9popEQAAAAAAAAAAAAAAAAAAAADwV9lrW1x4BAAAAJjmAaiUAmI=
+  </data>
+ </layer>
+ <layer id="9" name="collision" width="101" height="54" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJztlWsOgjAYBL3/LXsTf2pIv4qA2ynOJBtBoN3t8ng8RERERERERESEQpttYDLE/ERPSYj5iZ6SEPMTPSUh5id6SkLMT/SUhJif6CkJMT/RUxJifqKnJMT8RE9JiPmJnpIQ8xM9JSHmJ3pKQsxP9JSEmJ/oKQkxP9FTEmJ+oqckxPxET0mI+YmeklyRv+3U1ePdWcn1OcLouk/Hvp2z8tqKc3rj966txtyO+63Hmb3IixnPpoyZ9c6Uml92kuilmq/6bwV+3ckq63A1Z/InOvm3Xs7mT3Vy516qd+bR/MlO7tjL6Du2Sid36aW9/bZi/2j2GZ2s3ssozxXZZ3Xyfl9t/fS2e/ujTEfO27Nm1XPRO76nl958MztRSimllFJKKaWU+gc9AbgNopU=
+  </data>
+ </layer>
+</map>
