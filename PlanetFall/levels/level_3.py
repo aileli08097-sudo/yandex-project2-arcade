@@ -152,7 +152,6 @@ class Level_3(Level):
         else:
             self.slime2.texture = arcade.load_texture(self.slimes[self.i]).flip_horizontally()
 
-
         move = 0
         if self.left and not self.right:
             move = -self.player_speed

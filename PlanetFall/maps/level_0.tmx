@@ -8,7 +8,7 @@
  </layer>
  <layer id="2" name="water" width="92" height="54">
   <data encoding="base64" compression="zlib">
-   eJzt0DENACAAwDCCFpTgXxQHPx+72mQGNgYAAAAAAAAAAAAA8LJmE9eeTVx+t/xu+d3yu+V3y++W3y2/W363/G753fIbAAAA/jr56l2l
+   eJzt0KENACAAwDCC5ir+PwqBxzHVJntgYwAAAAAAAAAAAAAALyuKa88mLr9bfrf8bvnd8rvld8vvlt8tv1t+t/xu+Q0AAAB/HTy/WwE=
   </data>
  </layer>
  <layer id="6" name="stakes" width="92" height="54">

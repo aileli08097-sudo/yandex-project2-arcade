@@ -26,7 +26,7 @@ class WinView(arcade.View):
                 self.all_sprites.append(item)
             elif item.name == 'petrol2':
                 item.scale = 0.1
-                item.center_x = self.width // 2 + 300
+                item.center_x = self.width // 2 + 150
                 item.center_y = self.height // 2 + 200
                 self.all_sprites.append(item)
             else:
@@ -66,7 +66,7 @@ class WinView(arcade.View):
         self.main_text = arcade.Text("ПОБЕДА", self.window.width / 2, self.window.height / 2,
                                      arcade.color.WHITE, font_size=30, anchor_x="center", batch=self.batch)
         self.main_text1 = arcade.Text(
-            f"Время прохождения: {self.time} секунд  Собрано элементов корабля: {len(self.coll_items)}/2",
+            f"Время прохождения: {self.time} сек  Собрано элементов корабля: {len(self.coll_items)}/2",
             self.window.width / 2, self.window.height / 2 + 50,
             arcade.color.WHITE, font_size=15, anchor_x="center", batch=self.batch)
         self.space_text = arcade.Text("Чтобы перейти к следующему уровню, нажмите P", self.window.width / 2,

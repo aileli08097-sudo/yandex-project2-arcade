@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="101" height="54" tilewidth="21" tileheight="21" infinite="0" nextlayerid="11" nextobjectid="3">
+ <tileset firstgid="1" source="../../../../../../PycharmProjects/игры/levels/level_1.tsx"/>
+ <layer id="6" name="background2" width="101" height="54">
+  <data encoding="base64" compression="zlib">
+   eJzt0QENACAMA8HNvxiCQ1yMNblT0PSrAAAAAAAAAABIdPv3ggyTPx1N1tEEAAAAAAAAAAAAAAByPQs6AsU=
+  </data>
+ </layer>
+ <layer id="4" name="ground" width="101" height="54">
+  <data encoding="base64" compression="zlib">
+   eJzt1FtOwkAUgOFp2QBBcBvsg6DrMIi3bWGCJhKsF9xEwxt78ILKqwfbh8mEKVNq0478f/JFGuyFcwJKEREREREREREREREREREREZEvDQKlTlND7fVZUPWT1atzmcdF6lJ7fVXynMbs4beTRvb7Nxvm9CIW2vGBXKNt0dlyfb192klT5tJ10Nowv1uHOf3VTmz36jXc+dBM+b2Tvpw/DZW6dxCFyf/7UJGduPyeHJX8Pcmzkzo3M47v5HknFocyt1j+Hu+4k3UPcv6j4SlM9uWa7V4+78Tcg565k2fjOLZ8nqI7ydN/3ElWr/K8bxneLZ/n2nEnX3L+t2GVc0Yjy70+5DpLB58V7yRC7cwBAAAAAAAAAAAAAAAAQPwAUjpFtw==
+  </data>
+ </layer>
+ <objectgroup id="7" name="moving platforms">
+  <object id="1" gid="189" x="924" y="504.333" width="21" height="21">
+   <properties>
+    <property name="boundary_left" value="2772"/>
+    <property name="boundary_right" value="3150"/>
+    <property name="change_x" value="3"/>
+   </properties>
+  </object>
+  <object id="2" gid="189" x="1512" y="525" width="21" height="21">
+   <properties>
+    <property name="boundary_bottom" value="1575"/>
+    <property name="boundary_top" value="1890"/>
+    <property name="change_y" value="-3"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer id="5" name="background" width="101" height="54">
+  <data encoding="base64" compression="zlib">
+   eJzt0cEJgzAABVBrlugiQifpHoXuZ49S6Ah2EE9eNQqpmFiE904fkvzDT1UBAAAAAAAAAADAb65hPQPHuYV0Zq4pvM09pPMZDfUyv+r1u1s9Jtu0mTqnniGd/+6Sp+ZbYL++QOceXbTVJ7HdOzqP389k+gcAAAAAAAAAAADKGAHDXgxr
+  </data>
+ </layer>
+ <layer id="8" name="mushrooms" width="101" height="54">
+  <data encoding="base64" compression="zlib">
+   eJztyjEJAAAIADDtn0wsZQYvEbZ7EQAAAAAAAAAAAAAA8FPl7vfyAwAAAAAAAAAAcGcAr5IBlw==
+  </data>
+ </layer>
+ <layer id="9" name="collision" width="101" height="54" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJzt1EEKgzAQQNHc/5beRMSFLsKYYFTGvA+PUgolnakpRZIkSZIkSZIkSZIkSVlaAjr6ak72sHc1h9rntf2M2OFsO4n++9H8Wuf05E5azp7pvltOrxl30rOPTHvZenIno+bz9+ek9b6/+k13n5OeOf1xJ9GZst5d0Xdn2EnU7Dup3Rsj3/eeEwAAAAAAAAAAgPesp9oJ0A==
+  </data>
+ </layer>
+</map>

@@ -3,12 +3,12 @@
  <tileset firstgid="1" source="../../../../../../PycharmProjects/игры/levels/level_1.tsx"/>
  <layer id="1" name="ground" width="101" height="54">
   <data encoding="base64" compression="zlib">
-   eJzt09EKgjAUgOFtL+BFQb3/E6ZRUFdtoCAxoRvdoO+DH3QXeuhkCAAAAAAAAAAAALCPdwzhmlpPAcc44v9e3nFJvqvevWLrCX73yLNOufvXzGPlrLjF+nXtfpyf/ezs9+h5P2Ufp/x9D3NrtbPlvHa9dV86p/720toU6633sedOlr1szfGPDUmSJEmSJEmSJEmSJEmSQvgAA+Ly5A==
+   eJzt00EKwjAQQNFJLtCFLrz/EQsKurKFBoIkK0kN+B58aLJJyrQRAAAAAAAAAAAAMMYrRdzyr28B5zjje++d8Uxjz+V7s87ovt1rPaq19sp+67m33ntM+u4z2udx2f7x5ajW2iv7refeeu+azeXTmtrV8xg5kzKX3j3+sSVLkiRJkiRJkiRJkiRJUsQbyIHy0Q==
   </data>
  </layer>
  <layer id="2" name="background" width="101" height="54">
   <data encoding="base64" compression="zlib">
-   eJzt1EkOwjAMBdDC4bgN4yEYNogDs0Ag2EBKSGkbC95bVorzaydpGgAAAAAAAAAAAGBs62ntBDw7DjiTQ5B574LkSDlPXr+dCvOmarTZB+nFNpNj0zHnPMj/lehrJqsv6+Rm0vWtWKTW3c/ssvK82vbvaya5u5y7u7mZXOuX3P+H20w6rINPzQY+X0PXH2uPUhEz1fSuH3pVLtWz2n2svX9JhghZgd8U5X2JkgMAAAAAAODfXAA5xxI8
+   eJzt1FsOwiAQBdDq4tyNz0X4SNS4YD+MRn+0iFPTQvScz6bAZQZoGgAAAAAAAAAAAGBoy3HpBDw79tiTXSX93lSSo8159PrtFMzbNkfKtpJarDM5Vh1zTivZX0S0J4fE/4sv957rSde3YtY27n5m54X7lVo/2pN94v/cXc7d3VxPrvNH7v/DrScdxsGnJj2fr77nH2qNqBozlfSuHmoV11az0nUsvX4kQw1Zgd9Uy/tSSw4AAAAAAIB/cwEZrxNZ
   </data>
  </layer>
  <objectgroup id="4" name="moving platforms">
@@ -29,17 +29,17 @@
  </objectgroup>
  <layer id="6" name="stakes" width="101" height="54">
   <data encoding="base64" compression="zlib">
-   eJzt0cENgCAMQFHitA4DWyisabxb0xsS3zu3yW9aCgAAAAAAAAAAAADAWto2u+Dd/vG+yJnoHsFMTd7cE3NRR2b39tR4LPoTAAAAAAAAAACAP7sAlrQGHg==
+   eJzt0UEKwCAMRcHgaXsw215T3FsIVijFmf2HFxIBAAAAAAAAAAAAAMBKR/m6YM6Z6L5f3nYl9k8dmW03aqw//QkAAAAAAAAAAMDOGrbMBQE=
   </data>
  </layer>
  <layer id="3" name="juice" width="101" height="54">
   <data encoding="base64" compression="zlib">
-   eJzt0bEJADAMA7A+kEv6/39dS/CUoUslyGKwl6wFAAAAAAAAAAAAAPyurktZtSx10gZz+7qU7ZalTtpgzk8AAAAAAAAAAADeOq40Bc4=
+   eJzt0bEJADAMA7BekEf6/39dS/CUoUslyGKwl6wFAAAAAAAAAAAAAPyurktZtSx10gZz+7qU7ZalTtpgzk8AAAAAAAAAAADeOhE5Bd0=
   </data>
  </layer>
  <layer id="7" name="collision" width="101" height="54" visible="0">
   <data encoding="base64" compression="zlib">
-   eJzt00EKgCAQQNG5/y3nJm3aFI2UoSG9Bx9qYUZjEQAAAAAAAAAAADBG7sEfzDjvGf6rFaw0n+pMVecsi+vqfuR57X3urPn07JMxbybV+9157zdrv9yjtfb8baqu1rT2eToTSZIkSZIkSZIkSZIkSdKxDWgya40=
+   eJzt00sOgCAMQMHe/5bcxI0uNJTgD0mcSd6yQgAjAAAAAAAAAAAA4B1lDf5gxHvP1vCfzW/WOypRf1c9b6020/Ptp8x6ppsr+ysx7k6y/fXs+87sl2u0Zo9nk1Wbaa1z9k4kSZIkSZIkSZIkSZIkSfsWJYlqrA==
   </data>
  </layer>
 </map>
