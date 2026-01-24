@@ -45,9 +45,7 @@ class Level_1(Level):
         self.dont_items_list.append(item)
 
         self.snakes = ['images/enemies/snake.png', 'images/enemies/snake_walk.png']
-        self.snake_i = 0
         self.worms = ['images/enemies/worm.png', 'images/enemies/worm_walk.png']
-        self.worm_i = 0
 
         if not self.enemies_list:
             for i in range(7):
@@ -117,10 +115,6 @@ class Level_1(Level):
             self.animation_timer = 0
             self.i += 1
             self.i %= 2
-            self.snake_i += 1
-            self.snake_i %= 2
-            self.worm_i += 1
-            self.worm_i %= 2
 
         for enemy in self.enemies_list:
             if enemy.typ == 'piranha':
@@ -144,9 +138,9 @@ class Level_1(Level):
                     enemy.speed *= -1
                 enemy.center_x += enemy.speed * delta_time
                 if enemy.speed < 0:
-                    enemy.texture = arcade.load_texture(self.snakes[self.snake_i])
+                    enemy.texture = arcade.load_texture(self.snakes[self.i])
                 else:
-                    enemy.texture = arcade.load_texture(self.snakes[self.snake_i]).flip_horizontally()
+                    enemy.texture = arcade.load_texture(self.snakes[self.i]).flip_horizontally()
             elif enemy.typ == 'worm':
                 if enemy.left < 73 * 21 * 3:
                     enemy.left = 73 * 21 * 3 + 3
@@ -156,9 +150,9 @@ class Level_1(Level):
                     enemy.speed *= -1
                 enemy.center_x += enemy.speed * delta_time
                 if enemy.speed < 0:
-                    enemy.texture = arcade.load_texture(self.worms[self.worm_i])
+                    enemy.texture = arcade.load_texture(self.worms[self.i])
                 else:
-                    enemy.texture = arcade.load_texture(self.worms[self.worm_i]).flip_horizontally()
+                    enemy.texture = arcade.load_texture(self.worms[self.i]).flip_horizontally()
             elif enemy.typ == 'snail':
                 if enemy.left < enemy.x[0]:
                     enemy.left = enemy.x[0] + 3

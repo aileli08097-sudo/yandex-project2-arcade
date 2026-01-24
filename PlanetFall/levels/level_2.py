@@ -50,9 +50,7 @@ class Level_2(Level):
         self.dont_items_list.append(item)
 
         self.bats = ['images/enemies/bat.png', 'images/enemies/bat_fly.png']
-        self.bat_i = 0
         self.spiders = ['images/enemies/spider_walk1.png', 'images/enemies/spider_walk2.png']
-        self.spider_i = 0
 
         if not self.enemies_list:
             self.bat1 = arcade.Sprite('images/enemies/bat.png')
@@ -113,11 +111,6 @@ class Level_2(Level):
             self.animation_timer = 0
             self.i += 1
             self.i %= 2
-            self.bat_i += 1
-            self.bat_i %= 2
-            self.spider_i += 1
-            self.spider_i %= 2
-
 
         if self.bat1.left < 25 * 21 * 3:
             self.bat1.left = 25 * 21 * 3 + 3
@@ -128,10 +121,9 @@ class Level_2(Level):
 
         self.bat1.center_x += self.bat1.speed * delta_time
         if self.bat1.speed < 0:
-            self.bat1.texture = arcade.load_texture(self.bats[self.bat_i])
+            self.bat1.texture = arcade.load_texture(self.bats[self.i])
         else:
-            self.bat1.texture = arcade.load_texture(self.bats[self.bat_i]).flip_horizontally()
-
+            self.bat1.texture = arcade.load_texture(self.bats[self.i]).flip_horizontally()
 
         if self.bat2.left < 67 * 21 * 3:
             self.bat2.left = 67 * 21 * 3 + 3
@@ -142,9 +134,9 @@ class Level_2(Level):
 
         self.bat2.center_x += self.bat2.speed * delta_time
         if self.bat2.speed < 0:
-            self.bat2.texture = arcade.load_texture(self.bats[self.bat_i])
+            self.bat2.texture = arcade.load_texture(self.bats[self.i])
         else:
-            self.bat2.texture = arcade.load_texture(self.bats[self.bat_i]).flip_horizontally()
+            self.bat2.texture = arcade.load_texture(self.bats[self.i]).flip_horizontally()
 
         if self.spider.left < 46 * 21 * 3:
             self.spider.left = 46 * 21 * 3 + 3
@@ -154,9 +146,9 @@ class Level_2(Level):
             self.spider.speed *= -1
         self.spider.center_x += self.spider.speed * delta_time
         if self.spider.speed < 0:
-            self.spider.texture = arcade.load_texture(self.spiders[self.spider_i])
+            self.spider.texture = arcade.load_texture(self.spiders[self.i])
         else:
-            self.spider.texture = arcade.load_texture(self.spiders[self.spider_i]).flip_horizontally()
+            self.spider.texture = arcade.load_texture(self.spiders[self.i]).flip_horizontally()
 
         move = 0
         if self.left and not self.right:

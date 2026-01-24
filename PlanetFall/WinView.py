@@ -49,6 +49,7 @@ class WinView(arcade.View):
                 item.scale = 0.3
                 item.center_x = self.width // 2
                 item.center_y = self.height // 2 + 200
+                item.angle = 0
                 self.all_sprites.append(item)
 
     def on_draw(self):

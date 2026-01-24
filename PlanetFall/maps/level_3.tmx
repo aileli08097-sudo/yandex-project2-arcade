@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="101" height="54" tilewidth="21" tileheight="21" infinite="0" nextlayerid="8" nextobjectid="12">
+ <tileset firstgid="1" source="../../../../../../PycharmProjects/игры/levels/level_1.tsx"/>
+ <layer id="1" name="ground" width="101" height="54">
+  <data encoding="base64" compression="zlib">
+   eJzt09EKgjAUgOFtL+BFQb3/E6ZRUFdtoCAxoRvdoO+DH3QXeuhkCAAAAAAAAAAAALCPdwzhmlpPAcc44v9e3nFJvqvevWLrCX73yLNOufvXzGPlrLjF+nXtfpyf/ezs9+h5P2Ufp/x9D3NrtbPlvHa9dV86p/720toU6633sedOlr1szfGPDUmSJEmSJEmSJEmSJEmSQvgAA+Ly5A==
+  </data>
+ </layer>
+ <layer id="2" name="background" width="101" height="54">
+  <data encoding="base64" compression="zlib">
+   eJzt1EkOwjAMBdDC4bgN4yEYNogDs0Ag2EBKSGkbC95bVorzaydpGgAAAAAAAAAAAGBs62ntBDw7DjiTQ5B574LkSDlPXr+dCvOmarTZB+nFNpNj0zHnPMj/lehrJqsv6+Rm0vWtWKTW3c/ssvK82vbvaya5u5y7u7mZXOuX3P+H20w6rINPzQY+X0PXH2uPUhEz1fSuH3pVLtWz2n2svX9JhghZgd8U5X2JkgMAAAAAAODfXAA5xxI8
+  </data>
+ </layer>
+ <objectgroup id="4" name="moving platforms">
+  <object id="10" gid="505" x="800.667" y="525.667" width="39.6667" height="21">
+   <properties>
+    <property name="boundary_left" value="2394"/>
+    <property name="boundary_right" value="2961"/>
+    <property name="change_x" value="3"/>
+   </properties>
+  </object>
+  <object id="11" gid="505" x="1090" y="525.667" width="43.6667" height="21">
+   <properties>
+    <property name="boundary_left" value="3276"/>
+    <property name="boundary_right" value="3717"/>
+    <property name="change_x" value="3"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer id="6" name="stakes" width="101" height="54">
+  <data encoding="base64" compression="zlib">
+   eJzt0cENgCAMQFHitA4DWyisabxb0xsS3zu3yW9aCgAAAAAAAAAAAADAWto2u+Dd/vG+yJnoHsFMTd7cE3NRR2b39tR4LPoTAAAAAAAAAACAP7sAlrQGHg==
+  </data>
+ </layer>
+ <layer id="3" name="juice" width="101" height="54">
+  <data encoding="base64" compression="zlib">
+   eJzt0bEJADAMA7A+kEv6/39dS/CUoUslyGKwl6wFAAAAAAAAAAAAAPyurktZtSx10gZz+7qU7ZalTtpgzk8AAAAAAAAAAADeOq40Bc4=
+  </data>
+ </layer>
+ <layer id="7" name="collision" width="101" height="54" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJzt00EKgCAQQNG5/y3nJm3aFI2UoSG9Bx9qYUZjEQAAAAAAAAAAADBG7sEfzDjvGf6rFaw0n+pMVecsi+vqfuR57X3urPn07JMxbybV+9157zdrv9yjtfb8baqu1rT2eToTSZIkSZIkSZIkSZIkSdKxDWgya40=
+  </data>
+ </layer>
+</map>
