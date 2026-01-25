@@ -168,6 +168,7 @@ class Level_3(Level):
                      'enemies': arcade.SpriteList(),
                      'items': self.items_list,
                      'coll_items': self.coll_items_list}
+            arcade.stop_sound(self.background_player)
             from PlanetFall.WinView import WinView
             win_view = WinView(game_view=self, time=round(self.timer), state=state)
             self.window.show_view(win_view)
@@ -183,6 +184,7 @@ class Level_3(Level):
                      'items': self.items_list,
                      'coll_items': arcade.SpriteList()}
             self.jump_buffer_timer = 0
+            arcade.stop_sound(self.background_player)
             from PlanetFall.GameOverView import GameOverView
             game_over_view = GameOverView(game_view=self, state=state)
             self.window.show_view(game_over_view)
@@ -219,6 +221,7 @@ class Level_3(Level):
                 else:
                     self.player.texture = arcade.load_texture(self.textures[3])
                 self.physics_engine.jump(self.jump_speed)
+                self.jump_sound.play(volume=0.5)
                 self.is_jumping = False
                 self.was_jumping = True
                 self.jump_buffer_timer = 0
@@ -231,9 +234,9 @@ class Level_3(Level):
                     self.player.texture = arcade.load_texture(self.textures[9]).flip_horizontally()
                 else:
                     self.player.texture = arcade.load_texture(self.textures[9])
-
-                self.create_dust_effect()
             else:
+                self.land_sound.play(volume=1)
+                self.create_dust_effect()
                 self.land_timer = 0
                 self.was_jumping = False
 
@@ -250,7 +253,7 @@ class Level_3(Level):
 
         check = arcade.check_for_collision_with_list(self.player, self.dont_items_list)
         for item in check:
-            item.angle = 0
+            self.collect_sound.play(volume=1)
             item.remove_from_sprite_lists()
             self.coll_items_list.append(item)
 

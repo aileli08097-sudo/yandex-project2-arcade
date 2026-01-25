@@ -27,41 +27,51 @@ class StartGameView(arcade.View):
         self.start = False
         if self.level == 0:
             self.main_text = arcade.Text("Уровень первый", self.window.width / 2, self.window.height / 2,
-                                         arcade.color.WHITE, font_size=30, anchor_x="center", batch=self.batch)
+                                         arcade.color.WHITE, font_name='Times New Roman', font_size=25,
+                                         anchor_x="center", batch=self.batch)
             self.space_text = arcade.Text("Планета Cryon(Крион)", self.window.width / 2,
                                           self.window.height / 2 - 50,
-                                          arcade.color.WHITE, font_size=20, anchor_x="center", batch=self.batch)
+                                          arcade.color.WHITE, font_name='Lucida console', font_size=15,
+                                          anchor_x="center", batch=self.batch)
             self.planet_list.append(arcade.Sprite(self.planet_textures[0]))
         elif self.level == 1:
             self.main_text = arcade.Text("Уровень второй", self.window.width / 2, self.window.height / 2,
-                                         arcade.color.WHITE, font_size=30, anchor_x="center", batch=self.batch)
+                                         arcade.color.WHITE, font_name='Times New Roman', font_size=25,
+                                         anchor_x="center", batch=self.batch)
             self.space_text = arcade.Text("Планета Silvana(Сильвана)", self.window.width / 2,
                                           self.window.height / 2 - 50,
-                                          arcade.color.WHITE, font_size=20, anchor_x="center", batch=self.batch)
+                                          arcade.color.WHITE, font_name='Lucida console', font_size=15,
+                                          anchor_x="center", batch=self.batch)
 
             self.planet_list.append(arcade.Sprite(self.planet_textures[1]))
         elif self.level == 2:
             self.main_text = arcade.Text("Уровень третий", self.window.width / 2, self.window.height / 2,
-                                         arcade.color.WHITE, font_size=30, anchor_x="center", batch=self.batch)
+                                         arcade.color.WHITE, font_name='Times New Roman', font_size=25,
+                                         anchor_x="center", batch=self.batch)
             self.space_text = arcade.Text("Планета Ash-7(Аш-7)", self.window.width / 2,
                                           self.window.height / 2 - 50,
-                                          arcade.color.WHITE, font_size=20, anchor_x="center", batch=self.batch)
+                                          arcade.color.WHITE, font_name='Lucida console', font_size=15,
+                                          anchor_x="center", batch=self.batch)
 
             self.planet_list.append(arcade.Sprite(self.planet_textures[2]))
         elif self.level == 3:
             self.main_text = arcade.Text("Уровень четвёртый", self.window.width / 2, self.window.height / 2,
-                                         arcade.color.WHITE, font_size=30, anchor_x="center", batch=self.batch)
+                                         arcade.color.WHITE, font_name='Times New Roman', font_size=25,
+                                         anchor_x="center", batch=self.batch)
             self.space_text = arcade.Text("Планета Konfetti(Конфетти)", self.window.width / 2,
                                           self.window.height / 2 - 50,
-                                          arcade.color.WHITE, font_size=20, anchor_x="center", batch=self.batch)
+                                          arcade.color.WHITE, font_name='Lucida console', font_size=15,
+                                          anchor_x="center", batch=self.batch)
 
             self.planet_list.append(arcade.Sprite(self.planet_textures[3]))
         elif self.level == 4:
             self.main_text = arcade.Text("Уровень пятый", self.window.width / 2, self.window.height / 2,
-                                         arcade.color.WHITE, font_size=30, anchor_x="center", batch=self.batch)
+                                         arcade.color.WHITE, font_name='Times New Roman', font_size=25,
+                                         anchor_x="center", batch=self.batch)
             self.space_text = arcade.Text("Планета Arcanus(Арканус)", self.window.width / 2,
                                           self.window.height / 2 - 50,
-                                          arcade.color.WHITE, font_size=20, anchor_x="center", batch=self.batch)
+                                          arcade.color.WHITE, font_name='Lucida console', font_size=15,
+                                          anchor_x="center", batch=self.batch)
 
             self.planet_list.append(arcade.Sprite(self.planet_textures[4]))
         for sprite in self.planet_list:
@@ -86,7 +96,7 @@ class StartGameView(arcade.View):
     def on_update(self, delta_time):
         if not self.start:
             self.timer += delta_time
-            if self.timer > 2.0:
+            if self.timer > 3.0:
                 self.start = True
                 if self.level == 0:
                     from PlanetFall.levels.level_0 import Level_0

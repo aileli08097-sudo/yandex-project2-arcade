@@ -69,7 +69,7 @@ class Level_4(Level):
                     mouse = arcade.Sprite('images/enemies/mouse.png')
                     mouse.typ = 'mouse'
                     mouse.x = [(71 * 21 * 3, 83 * 21 * 3),
-                           (85 * 21 * 3, 95 * 21 * 3)][i]
+                               (85 * 21 * 3, 95 * 21 * 3)][i]
                     mouse.center_x = random.randint(mouse.x[0], mouse.x[1])
                     mouse.center_y = 24 * 21 * 3 + mouse.height // 2
                     mouse.speed = self.enemy_speed * random.choice([-1, 1])
@@ -145,11 +145,13 @@ class Level_4(Level):
                      'enemies': arcade.SpriteList(),
                      'items': self.items_list,
                      'coll_items': self.coll_items_list}
+            arcade.stop_sound(self.background_player)
             from PlanetFall.FinishView import FinishView
             finish_view = FinishView(time=round(self.timer), state=state)
             self.window.show_view(finish_view)
 
-        if arcade.check_for_collision_with_list(self.player, self.mushrooms_list) or arcade.check_for_collision_with_list(
+        if arcade.check_for_collision_with_list(self.player,
+                                                self.mushrooms_list) or arcade.check_for_collision_with_list(
                 self.player, self.enemies_list):
             self.game_over = True
             state = {'level': self.level,
@@ -159,6 +161,7 @@ class Level_4(Level):
                      'items': self.items_list,
                      'coll_items': arcade.SpriteList()}
             self.jump_buffer_timer = 0
+            arcade.stop_sound(self.background_player)
             from PlanetFall.GameOverView import GameOverView
             game_over_view = GameOverView(game_view=self, state=state)
             self.window.show_view(game_over_view)
@@ -195,6 +198,7 @@ class Level_4(Level):
                 else:
                     self.player.texture = arcade.load_texture(self.textures[3])
                 self.physics_engine.jump(self.jump_speed)
+                self.jump_sound.play(volume=0.5)
                 self.is_jumping = False
                 self.was_jumping = True
                 self.jump_buffer_timer = 0
@@ -207,9 +211,9 @@ class Level_4(Level):
                     self.player.texture = arcade.load_texture(self.textures[9]).flip_horizontally()
                 else:
                     self.player.texture = arcade.load_texture(self.textures[9])
-
-                self.create_dust_effect()
             else:
+                self.land_sound.play(volume=1)
+                self.create_dust_effect()
                 self.land_timer = 0
                 self.was_jumping = False
 
@@ -226,7 +230,7 @@ class Level_4(Level):
 
         check = arcade.check_for_collision_with_list(self.player, self.dont_items_list)
         for item in check:
-            item.angle = 0
+            self.collect_sound.play(volume=1)
             item.remove_from_sprite_lists()
             self.coll_items_list.append(item)
 

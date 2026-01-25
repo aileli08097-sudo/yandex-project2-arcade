@@ -5,6 +5,8 @@ from pyglet.graphics import Batch
 class FinishView(arcade.View):
     def __init__(self, time, state):
         super().__init__()
+        self.background_music = None
+        self.background_player = None
         self.time = time
         self.level = state['level']
         self.player = state['player']
@@ -24,11 +26,14 @@ class FinishView(arcade.View):
             walls=self.ground
         )
         self.batch = Batch()
-        fire = arcade.Sprite('images/rocket_fire.png', 0.7)
-        fire.center_x = self.width // 2 - 200
-        fire.center_y = self.height // 2 + 100
-        fire.angle = 45
-        self.all_sprites.append(fire)
+        for item in self.items:
+            if item.name == 'petrol':
+                fire = arcade.Sprite('images/rocket_fire.png', 0.7)
+                fire.center_x = self.width // 2 - 200
+                fire.center_y = self.height // 2 + 64
+                fire.angle = 45
+                self.all_sprites.append(fire)
+                break
         shadow = arcade.Sprite('images/rocket_shadow.png', 0.7)
         shadow.center_x = self.width // 2 - 200
         shadow.center_y = self.height // 2 + 100
@@ -63,36 +68,42 @@ class FinishView(arcade.View):
             (0, 0, 0, 150)
         )
         self.main_text = arcade.Text("ПОБЕДА", self.window.width / 2, self.window.height / 2,
-                                     arcade.color.WHITE, font_size=30, anchor_x="center", batch=self.batch)
+                                     arcade.color.WHITE, font_name='Times New Roman', font_size=30, anchor_x="center",
+                                     batch=self.batch)
         self.main_text2 = arcade.Text("Вы прошли все уровни!", self.window.width / 2, self.window.height / 2 - 50,
-                                      arcade.color.WHITE, font_size=20, anchor_x="center", batch=self.batch)
+                                      arcade.color.WHITE, font_name='Lucida console', font_size=15, anchor_x="center",
+                                      batch=self.batch)
         self.main_text1 = arcade.Text(
             f"Время прохождения: {self.time} сек  Собрано элементов корабля за этот уровень: {len(self.coll_items)}/2",
             self.window.width / 2, self.window.height / 2 + 100,
-            arcade.color.WHITE, font_size=15, anchor_x="center", batch=self.batch)
-
+            arcade.color.WHITE, font_name='Lucida console', font_size=15, anchor_x="center", batch=self.batch)
 
         self.main_text3 = arcade.Text(f"Собрано элементов корабля всего: {len(self.coll_items) + len(self.items)}/10",
-                           self.window.width / 2, self.window.height / 2 + 50,
-                           arcade.color.WHITE, font_size=15, anchor_x="center", batch=self.batch)
+                                      self.window.width / 2, self.window.height / 2 + 50,
+                                      arcade.color.WHITE, font_size=15, anchor_x="center", batch=self.batch)
         self.space_text = arcade.Text("Чтобы сбросить прогресс, нажмите P", self.window.width / 2,
                                       self.window.height / 2 - 150,
-                                      arcade.color.WHITE, font_size=20, anchor_x="center", batch=self.batch)
+                                      arcade.color.WHITE, font_name='Lucida console', font_size=15, anchor_x="center",
+                                      batch=self.batch)
         self.space_text1 = arcade.Text("Чтобы выйти в меню, нажмите ESC", self.window.width / 2,
                                        self.window.height / 2 - 200,
-                                       arcade.color.WHITE, font_size=20, anchor_x="center", batch=self.batch)
+                                       arcade.color.WHITE, font_name='Lucida console', font_size=15, anchor_x="center",
+                                       batch=self.batch)
         self.space_text2 = arcade.Text("Чтобы переиграть, нажмите Q", self.window.width / 2,
                                        self.window.height / 2 - 100,
-                                       arcade.color.WHITE, font_size=20, anchor_x="center", batch=self.batch)
+                                       arcade.color.WHITE, font_name='Lucida console', font_size=15, anchor_x="center",
+                                       batch=self.batch)
         self.batch.draw()
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.ESCAPE:
+            arcade.stop_sound(self.background_player)
             from MenuView import MenuView
             menu_view = MenuView(items=self.items)
             menu_view.setup()
             self.window.show_view(menu_view)
         elif key == arcade.key.P:
+            arcade.stop_sound(self.background_player)
             ...
         elif key == arcade.key.Q:
             state = {'level': self.level,
@@ -101,6 +112,12 @@ class FinishView(arcade.View):
                      'enemies': arcade.SpriteList(),
                      'items': self.items,
                      'coll_items': arcade.SpriteList()}
+            arcade.stop_sound(self.background_player)
             from StartGameView import StartGameView
             start_game_view = StartGameView(state=state)
             self.window.show_view(start_game_view)
+
+    def on_show_view(self):
+        super().on_show_view()
+        self.background_music = arcade.load_sound(f'sounds/finish.mp3')
+        self.background_player = self.background_music.play(loop=True, volume=0.5)

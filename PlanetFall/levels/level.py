@@ -58,6 +58,11 @@ class Level(arcade.View):
         self.background_texture = arcade.load_texture(f'images/skies/sky_lvl_{self.level}.jpg')
         self.player = saved_state.get('player')
         self.player_num = saved_state.get('player_num')
+        self.background_music = None
+        self.background_player = None
+        self.jump_sound = arcade.load_sound("sounds/jump.wav")
+        self.land_sound = arcade.load_sound("sounds/land.wav")
+        self.collect_sound = arcade.load_sound("sounds/collect.wav")
         self.player_list = arcade.SpriteList()
 
         self.enemies_list = saved_state.get('enemies', arcade.SpriteList())
@@ -91,7 +96,8 @@ class Level(arcade.View):
         self.batch = Batch()
         self.space_text = arcade.Text("Нажмите ESC, чтобы приостановить", 170,
                                       self.window.height - 30,
-                                      arcade.color.WHITE, font_size=15, anchor_x="center", batch=self.batch)
+                                      arcade.color.WHITE, font_name='Times New Roman', font_size=15, anchor_x="center",
+                                      batch=self.batch)
 
         self.scene = None
         self.physics_engine = None
@@ -145,7 +151,7 @@ class Level(arcade.View):
 
     def pause_game(self):
         self.paused = True
-
+        arcade.stop_sound(self.background_player)
         saved_state = {'level': self.level,
                        'player': self.player,
                        'player_num': self.player_num,
@@ -189,3 +195,8 @@ class Level(arcade.View):
             self.up = False
         elif key in (arcade.key.DOWN, arcade.key.S):
             self.down = False
+
+    def on_show_view(self):
+        super().on_show_view()
+        self.background_music = arcade.load_sound(f'sounds/level_{self.level}.mp3')
+        self.background_player = self.background_music.play(loop=True, volume=0.3)

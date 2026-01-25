@@ -5,6 +5,8 @@ from pyglet.graphics import Batch
 class WinView(arcade.View):
     def __init__(self, game_view, time, state):
         super().__init__()
+        self.background_music = None
+        self.background_player = None
         self.time = time
         self.level = state['level']
         self.player = state['player']
@@ -64,24 +66,29 @@ class WinView(arcade.View):
         )
         self.all_sprites.draw()
         self.main_text = arcade.Text("ПОБЕДА", self.window.width / 2, self.window.height / 2,
-                                     arcade.color.WHITE, font_size=30, anchor_x="center", batch=self.batch)
+                                     arcade.color.WHITE, font_name='Times New Roman', font_size=30, anchor_x="center",
+                                     batch=self.batch)
         self.main_text1 = arcade.Text(
             f"Время прохождения: {self.time} сек  Собрано элементов корабля: {len(self.coll_items)}/2",
             self.window.width / 2, self.window.height / 2 + 50,
             arcade.color.WHITE, font_size=15, anchor_x="center", batch=self.batch)
         self.space_text = arcade.Text("Чтобы перейти к следующему уровню, нажмите P", self.window.width / 2,
                                       self.window.height / 2 - 100,
-                                      arcade.color.WHITE, font_size=20, anchor_x="center", batch=self.batch)
+                                      arcade.color.WHITE, font_name='Lucida console', font_size=15, anchor_x="center",
+                                      batch=self.batch)
         self.space_text1 = arcade.Text("Чтобы выйти в меню, нажмите ESC", self.window.width / 2,
                                        self.window.height / 2 - 150,
-                                       arcade.color.WHITE, font_size=20, anchor_x="center", batch=self.batch)
+                                       arcade.color.WHITE, font_name='Lucida console', font_size=15, anchor_x="center",
+                                       batch=self.batch)
         self.space_text2 = arcade.Text("Чтобы переиграть, нажмите Q", self.window.width / 2,
                                        self.window.height / 2 - 50,
-                                       arcade.color.WHITE, font_size=20, anchor_x="center", batch=self.batch)
+                                       arcade.color.WHITE, font_name='Lucida console', font_size=15, anchor_x="center",
+                                       batch=self.batch)
         self.batch.draw()
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.ESCAPE:
+            arcade.stop_sound(self.background_player)
             from MenuView import MenuView
             menu_view = MenuView(items=self.items)
             menu_view.setup()
@@ -95,6 +102,7 @@ class WinView(arcade.View):
                      'enemies': arcade.SpriteList(),
                      'items': self.items,
                      'coll_items': arcade.SpriteList()}
+            arcade.stop_sound(self.background_player)
             from StartGameView import StartGameView
             start_game_view = StartGameView(state=state)
             self.window.show_view(start_game_view)
@@ -105,6 +113,12 @@ class WinView(arcade.View):
                      'enemies': arcade.SpriteList(),
                      'items': self.items,
                      'coll_items': arcade.SpriteList()}
+            arcade.stop_sound(self.background_player)
             from StartGameView import StartGameView
             start_game_view = StartGameView(state=state)
             self.window.show_view(start_game_view)
+
+    def on_show_view(self):
+        super().on_show_view()
+        self.background_music = arcade.load_sound(f'sounds/win.mp3')
+        self.background_player = self.background_music.play(volume=0.5)

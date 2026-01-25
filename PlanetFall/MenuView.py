@@ -49,13 +49,17 @@ class MenuView(arcade.View):
     def __init__(self, items=arcade.SpriteList(), options=['Первый', 'Второй', 'Третий', 'Четвёртый', 'Пятый']):
         super().__init__()
         self.background_color = arcade.color.BLACK
+        self.background_music = arcade.load_sound("sounds/menu.mp3")
+        self.background_player = None
 
         self.batch = Batch()
         self.main_text = arcade.Text("Главное Меню", self.window.width / 2, self.window.height - 50,
-                                     arcade.color.WHITE, font_size=30, anchor_x="center", batch=self.batch)
+                                     arcade.color.WHITE, font_name='Times New Roman', font_size=30, anchor_x="center",
+                                     batch=self.batch)
         self.space_text = arcade.Text("Выберите героя", self.window.width / 4,
                                       self.window.height - 100,
-                                      arcade.color.WHITE, font_size=20, anchor_x="center", batch=self.batch)
+                                      arcade.color.WHITE, font_name='Times New Roman', font_size=25, anchor_x="center",
+                                      batch=self.batch)
         self.enemies_list = arcade.SpriteList()
         items = items
         self.items_list = arcade.SpriteList()
@@ -83,7 +87,8 @@ class MenuView(arcade.View):
 
         self.space_text1 = arcade.Text("Выберите уровень", self.window.width * 3 / 4,
                                        self.window.height - 100,
-                                       arcade.color.WHITE, font_size=20, anchor_x="center", batch=self.batch)
+                                       arcade.color.WHITE, font_name='Times New Roman', font_size=25, anchor_x="center",
+                                       batch=self.batch)
         self.planet_textures = [
             'images/planets/planet00.png',
             'images/planets/planet03.png',
@@ -296,6 +301,10 @@ class MenuView(arcade.View):
                        'player_num': self.player_num,
                        'enemies': self.enemies_list,
                        'items': self.items_list}
-
+        arcade.stop_sound(self.background_player)
         start_game_view = StartGameView(state=saved_state)
         self.window.show_view(start_game_view)
+
+    def on_show_view(self):
+        super().on_show_view()
+        self.background_player = self.background_music.play(loop=True, volume=0.5)

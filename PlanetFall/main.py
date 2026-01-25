@@ -1,6 +1,6 @@
 import arcade
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE
-from MenuView import MenuView
+from LaunchView import LaunchView
 
 
 def setup_game(width=SCREEN_WIDTH, height=SCREEN_HEIGHT, title=SCREEN_TITLE):
@@ -10,9 +10,8 @@ def setup_game(width=SCREEN_WIDTH, height=SCREEN_HEIGHT, title=SCREEN_TITLE):
 
 def main():
     window = setup_game()
-    menu_view = MenuView()
-    menu_view.setup()
-    window.show_view(menu_view)
+    launch_view = LaunchView()
+    window.show_view(launch_view)
     arcade.run()
 
 
