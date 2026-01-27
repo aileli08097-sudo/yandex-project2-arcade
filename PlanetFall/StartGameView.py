@@ -9,7 +9,7 @@ class StartGameView(arcade.View):
         self.level = state['level']
         self.player = state['player']
         self.player_num = state['player_num']
-        self.items_list = arcade.SpriteList()
+        self.items_list = []
         items = state['items']
         for x in set(items):
             self.items_list.append(x)
@@ -31,8 +31,9 @@ class StartGameView(arcade.View):
                                          anchor_x="center", batch=self.batch)
             self.space_text = arcade.Text("Планета Cryon(Крион)", self.window.width / 2,
                                           self.window.height / 2 - 50,
-                                          arcade.color.WHITE, font_name='Lucida console', font_size=15,
+                                          arcade.color.WHITE, font_name='Lucida console', font_size=20,
                                           anchor_x="center", batch=self.batch)
+
             self.planet_list.append(arcade.Sprite(self.planet_textures[0]))
         elif self.level == 1:
             self.main_text = arcade.Text("Уровень второй", self.window.width / 2, self.window.height / 2,
@@ -40,7 +41,7 @@ class StartGameView(arcade.View):
                                          anchor_x="center", batch=self.batch)
             self.space_text = arcade.Text("Планета Silvana(Сильвана)", self.window.width / 2,
                                           self.window.height / 2 - 50,
-                                          arcade.color.WHITE, font_name='Lucida console', font_size=15,
+                                          arcade.color.WHITE, font_name='Lucida console', font_size=20,
                                           anchor_x="center", batch=self.batch)
 
             self.planet_list.append(arcade.Sprite(self.planet_textures[1]))
@@ -50,7 +51,7 @@ class StartGameView(arcade.View):
                                          anchor_x="center", batch=self.batch)
             self.space_text = arcade.Text("Планета Ash-7(Аш-7)", self.window.width / 2,
                                           self.window.height / 2 - 50,
-                                          arcade.color.WHITE, font_name='Lucida console', font_size=15,
+                                          arcade.color.WHITE, font_name='Lucida console', font_size=20,
                                           anchor_x="center", batch=self.batch)
 
             self.planet_list.append(arcade.Sprite(self.planet_textures[2]))
@@ -60,7 +61,7 @@ class StartGameView(arcade.View):
                                          anchor_x="center", batch=self.batch)
             self.space_text = arcade.Text("Планета Konfetti(Конфетти)", self.window.width / 2,
                                           self.window.height / 2 - 50,
-                                          arcade.color.WHITE, font_name='Lucida console', font_size=15,
+                                          arcade.color.WHITE, font_name='Lucida console', font_size=20,
                                           anchor_x="center", batch=self.batch)
 
             self.planet_list.append(arcade.Sprite(self.planet_textures[3]))
@@ -70,7 +71,7 @@ class StartGameView(arcade.View):
                                          anchor_x="center", batch=self.batch)
             self.space_text = arcade.Text("Планета Arcanus(Арканус)", self.window.width / 2,
                                           self.window.height / 2 - 50,
-                                          arcade.color.WHITE, font_name='Lucida console', font_size=15,
+                                          arcade.color.WHITE, font_name='Lucida console', font_size=20,
                                           anchor_x="center", batch=self.batch)
 
             self.planet_list.append(arcade.Sprite(self.planet_textures[4]))
@@ -85,7 +86,7 @@ class StartGameView(arcade.View):
                             'player_num': self.player_num,
                             'enemies': arcade.SpriteList(),
                             'items': self.items_list,
-                            'coll_items': arcade.SpriteList()}
+                            'coll_items': []}
 
     def on_draw(self):
         self.clear()

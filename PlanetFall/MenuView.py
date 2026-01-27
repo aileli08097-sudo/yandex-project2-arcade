@@ -1,4 +1,6 @@
+import os
 import random
+import sqlite3
 from dataclasses import dataclass
 import arcade
 from arcade.gui import UIManager, UIAnchorLayout, UIBoxLayout, UILabel, UIDropdown
@@ -7,6 +9,7 @@ from constants import *
 from arcade.particles import FadeParticle, Emitter, EmitMaintainCount
 from pyglet.event import EVENT_HANDLE_STATE
 from StartGameView import StartGameView
+from items import Item
 
 
 def make_trail(attached_sprite, maintain=60):
@@ -34,6 +37,80 @@ class InputState:
     down: bool = False
 
 
+class DatabaseManager:
+    def __init__(self, db_name='planetfall_db.sqlite'):
+        self.db_name = db_name
+        self.required_tables = {  # нужные таблицы в БД
+            'opened_levels': [
+                ('id', 'INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL'),
+                ('name', 'TEXT NOT NULL')
+            ],
+            'collected_items': [
+                ('id', 'INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL'),
+                ('type', 'INTEGER NOT NULL')
+            ]
+        }
+
+    def initialize_database(self):
+        if not self._is_database_valid():
+            self._create_new_database()
+
+        conn = sqlite3.connect(self.db_name)
+        return conn
+
+    def _is_database_valid(self):  # подходит ли база данных
+        if not os.path.exists(self.db_name):  # если нет подходящей БД
+            return False
+        conn = sqlite3.connect(self.db_name)
+        cursor = conn.cursor()
+
+        # иначе:
+        cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+        existing_tables = {row[0] for row in cursor.fetchall()}  # считывание находящихся таблиц
+
+        required_tables_set = set(self.required_tables.keys())
+        if not required_tables_set.issubset(existing_tables):
+            conn.close()
+            return False
+
+        for table_name, required_columns in self.required_tables.items():  # подходят ли столбцы в таблицах
+            cursor.execute(f"PRAGMA table_info({table_name})")
+            existing_columns = {row[1] for row in cursor.fetchall()}
+
+            required_columns_names = {col[0] for col in required_columns}
+            if not required_columns_names.issubset(existing_columns):
+                conn.close()
+                return False
+
+        conn.close()
+        return True
+
+    def _create_new_database(self):  # создание новой БД
+        if os.path.exists(self.db_name):  # если есть, то удаляем
+            os.remove(self.db_name)
+
+        conn = sqlite3.connect(self.db_name)
+        cursor = conn.cursor()
+
+        # создание нужных таблиц
+        cursor.execute('''
+            CREATE TABLE opened_levels (
+                id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                name TEXT NOT NULL
+            )
+        ''')
+
+        cursor.execute('''
+            CREATE TABLE collected_items (
+                id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                type INTEGER NOT NULL
+            )
+        ''')
+
+        conn.commit()
+        conn.close()
+
+
 class Star(arcade.Sprite):
     def __init__(self):
         super().__init__()
@@ -46,8 +123,10 @@ class Star(arcade.Sprite):
 
 
 class MenuView(arcade.View):
-    def __init__(self, items=arcade.SpriteList(), options=['Первый', 'Второй', 'Третий', 'Четвёртый', 'Пятый']):
+    def __init__(self):
         super().__init__()
+        self.db_manager = DatabaseManager()
+        self.con = self.db_manager.initialize_database()
         self.background_color = arcade.color.BLACK
         self.background_music = arcade.load_sound("sounds/menu.mp3")
         self.background_player = None
@@ -61,11 +140,22 @@ class MenuView(arcade.View):
                                       arcade.color.WHITE, font_name='Times New Roman', font_size=25, anchor_x="center",
                                       batch=self.batch)
         self.enemies_list = arcade.SpriteList()
-        items = items
-        self.items_list = arcade.SpriteList()
-        for x in set(items):
-            self.items_list.append(x)
-        self.option_list1 = options
+
+        self.option_list1 = ['Первый']
+        cur = self.con.cursor()
+        query = 'SELECT name FROM opened_levels'
+        res = cur.execute(query).fetchall()
+        for row in res:
+            self.option_list1.append(row[0])
+
+
+        self.items = []
+        cur = self.con.cursor()
+        query = 'SELECT type FROM collected_items'
+        res = cur.execute(query).fetchall()
+        for row in res:
+            self.items.append(row[0])
+
         self.player_textures = [
             'images/aliens/alienBeige_badge1.png',
             'images/aliens/alienBlue_badge1.png',
@@ -166,6 +256,8 @@ class MenuView(arcade.View):
             p.center_y = 500 - i * 60
             p.scale = 0.05
             self.all_sprites.append(p)
+
+        self.option_list1 = list(dict.fromkeys(self.option_list1))
 
         self.manager1 = UIManager()
         self.manager1.enable()
@@ -300,8 +392,9 @@ class MenuView(arcade.View):
                        'player': self.player,
                        'player_num': self.player_num,
                        'enemies': self.enemies_list,
-                       'items': self.items_list}
+                       'items': self.items}
         arcade.stop_sound(self.background_player)
+        self.con.close()
         start_game_view = StartGameView(state=saved_state)
         self.window.show_view(start_game_view)
 

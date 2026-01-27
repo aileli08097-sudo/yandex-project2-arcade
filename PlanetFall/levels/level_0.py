@@ -1,5 +1,7 @@
 import arcade
 import random
+
+from PlanetFall.items import Item
 from PlanetFall.levels.level import Level, DustParticle
 from PlanetFall.constants import *
 
@@ -28,13 +30,11 @@ class Level_0(Level):
         self.background_list = self.scene['background']
         self.collision_list = self.scene['collision']
 
-        item = arcade.Sprite('images/items/item_0.png', 0.5)
-        item.name = 'item'
+        item = Item('images/items/item_0.png', 0.5, 0)
         item.center_x = 44 * 21 * 3
         item.center_y = 12 * 21 * 3
         self.dont_items_list.append(item)
-        item = arcade.Sprite('images/items/item_1.png', 0.5)
-        item.name = 'item'
+        item = Item('images/items/item_1.png', 0.5, 1)
         item.center_x = 65 * 21 * 3
         item.center_y = 31 * 21 * 3
         self.dont_items_list.append(item)
@@ -45,11 +45,24 @@ class Level_0(Level):
             self.ghost.center_y = 24 * 21 * 3 + self.ghost.height
             self.ghost.speed = self.enemy_speed * random.choice([-1, 1])
             self.enemies_list.append(self.ghost)
+
+            self.ghost1 = arcade.Sprite('images/enemies/ghost.png')
+            self.ghost1.center_x = random.randint(78 * 21 * 3, 88 * 21 * 3)
+            self.ghost1.center_y = 24 * 21 * 3 + self.ghost1.height
+            self.ghost1.speed = self.enemy_speed * random.choice([-1, 1])
+            self.enemies_list.append(self.ghost1)
+
             self.fish = arcade.Sprite('images/enemies/fishPink.png')
             self.fish.center_x = random.randint(24 * 21 * 3, 43 * 21 * 3)
             self.fish.center_y = 12 * 21 * 3 + self.fish.height
             self.fish.speed = self.enemy_speed * random.choice([-1, 1])
             self.enemies_list.append(self.fish)
+
+            self.fish1 = arcade.Sprite('images/enemies/fishPink.png')
+            self.fish1.center_x = random.randint(24 * 21 * 3, 43 * 21 * 3)
+            self.fish1.center_y = 12 * 21 * 3 + self.fish1.height
+            self.fish1.speed = self.enemy_speed * random.choice([-1, 1])
+            self.enemies_list.append(self.fish1)
 
         self.physics_engine = arcade.PhysicsEnginePlatformer(
             player_sprite=self.player,
@@ -98,6 +111,18 @@ class Level_0(Level):
         else:
             self.ghost.texture = arcade.load_texture('images/enemies/ghost.png').flip_horizontally()
 
+        if self.ghost1.left < 78 * 21 * 3:
+            self.ghost1.left = 78 * 21 * 3 + 3
+            self.ghost1.speed *= -1
+        elif self.ghost1.right > 88 * 21 * 3:
+            self.ghost1.right = 88 * 21 * 3 - 3
+            self.ghost1.speed *= -1
+        self.ghost1.center_x += self.ghost1.speed * delta_time
+        if self.ghost1.speed < 0:
+            self.ghost1.texture = arcade.load_texture('images/enemies/ghost.png')
+        else:
+            self.ghost1.texture = arcade.load_texture('images/enemies/ghost.png').flip_horizontally()
+
         if self.fish.left < 24 * 21 * 3:
             self.fish.left = 24 * 21 * 3 + 3
             self.fish.speed *= -1
@@ -109,6 +134,18 @@ class Level_0(Level):
             self.fish.texture = arcade.load_texture('images/enemies/fishPink.png')
         else:
             self.fish.texture = arcade.load_texture('images/enemies/fishPink.png').flip_horizontally()
+
+        if self.fish1.left < 24 * 21 * 3:
+            self.fish1.left = 24 * 21 * 3 + 3
+            self.fish1.speed *= -1
+        elif self.fish1.right > 43 * 21 * 3:
+            self.fish1.right = 43 * 21 * 3 - 3
+            self.fish1.speed *= -1
+        self.fish1.center_x += self.fish1.speed * delta_time
+        if self.fish1.speed < 0:
+            self.fish1.texture = arcade.load_texture('images/enemies/fishPink.png')
+        else:
+            self.fish1.texture = arcade.load_texture('images/enemies/fishPink.png').flip_horizontally()
 
         move = 0
         if self.left and not self.right:
@@ -192,18 +229,21 @@ class Level_0(Level):
                 self.jump_sound.play(volume=0.5)
                 self.is_jumping = False
                 self.was_jumping = True
+                self.first = True
                 self.jump_buffer_timer = 0
                 self.jumps_left -= 1
 
         elif self.physics_engine.can_jump(y_distance=6) and self.was_jumping:
             self.land_timer += delta_time
-            if self.land_timer <= 0.15:
+            if self.first:
+                self.land_sound.play(volume=1)
+                self.first = False
+            if self.land_timer <= 0.11:
                 if self.left:
                     self.player.texture = arcade.load_texture(self.textures[9]).flip_horizontally()
                 else:
                     self.player.texture = arcade.load_texture(self.textures[9])
             else:
-                self.land_sound.play(volume=1)
                 self.create_dust_effect()
                 self.land_timer = 0
                 self.was_jumping = False
@@ -225,7 +265,7 @@ class Level_0(Level):
         for item in check:
             self.collect_sound.play(volume=1)
             item.remove_from_sprite_lists()
-            self.coll_items_list.append(item)
+            self.coll_items_list.append(item.typ)
 
         target_x = self.player.center_x
         target_y = self.player.center_y

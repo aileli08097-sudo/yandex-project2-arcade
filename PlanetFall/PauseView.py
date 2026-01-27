@@ -39,7 +39,7 @@ class PauseView(arcade.View):
         if key == arcade.key.ESCAPE:
             arcade.stop_sound(self.background_player)
             from MenuView import MenuView
-            menu_view = MenuView(items=self.game_state['items'])
+            menu_view = MenuView()
             menu_view.setup()
             self.window.show_view(menu_view)
         elif key == arcade.key.P:

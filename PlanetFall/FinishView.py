@@ -1,57 +1,67 @@
+import os
+import sqlite3
+
 import arcade
 from pyglet.graphics import Batch
+
+from PlanetFall.items import Item
 
 
 class FinishView(arcade.View):
     def __init__(self, time, state):
         super().__init__()
+        self.con = sqlite3.connect('planetfall_db.sqlite')
         self.background_music = None
         self.background_player = None
         self.time = time
         self.level = state['level']
         self.player = state['player']
-        self.player.center_x = self.window.width // 2
-        self.player.center_y = self.window.height // 2
         self.all_sprites = arcade.SpriteList()
-        self.all_sprites.append(self.player)
         self.player_num = state['player_num']
         self.items = state['items']
         self.coll_items = state['coll_items']
         tile_map = arcade.load_tilemap(f'maps/finish.tmx')
         self.scene = arcade.Scene.from_tilemap(tile_map)
         self.ground = self.scene['ground']
-        self.physics_engine = arcade.PhysicsEnginePlatformer(
-            player_sprite=self.player,
-            gravity_constant=0.7,
-            walls=self.ground
-        )
         self.batch = Batch()
-        for item in self.items:
-            if item.name == 'petrol':
+        for x in self.items:
+            if x > 7:
                 fire = arcade.Sprite('images/rocket_fire.png', 0.7)
                 fire.center_x = self.width // 2 - 200
                 fire.center_y = self.height // 2 + 64
                 fire.angle = 45
                 self.all_sprites.append(fire)
-                break
         shadow = arcade.Sprite('images/rocket_shadow.png', 0.7)
         shadow.center_x = self.width // 2 - 200
         shadow.center_y = self.height // 2 + 100
         self.all_sprites.append(shadow)
-        for item in self.items:
-            if item.name == 'item':
+        for x in self.items:
+            if x < 8:
+                item = Item(f'images/items/item_{x}.png', typ=x)
                 item.scale = 0.7
                 item.center_x = self.width // 2 - 200
                 item.center_y = self.height // 2 + 100
                 item.angle = 0
                 self.all_sprites.append(item)
-        for item in self.coll_items:
-            if item.name == 'item':
+        for x in self.coll_items:
+            if x < 8:
+                item = Item(f'images/items/item_{x}.png', typ=x)
                 item.scale = 0.7
                 item.center_x = self.width // 2 - 200
                 item.center_y = self.height // 2 + 100
                 item.angle = 0
                 self.all_sprites.append(item)
+        self.items += self.coll_items
+        self.items = list(set(self.items))
+
+        self.player.center_x = self.window.width // 2
+        self.player.center_y = self.window.height // 2
+        self.all_sprites.append(self.player)
+        self.physics_engine = arcade.PhysicsEnginePlatformer(
+            player_sprite=self.player,
+            gravity_constant=0.7,
+            walls=self.ground
+        )
 
     def on_update(self, delta_time):
         self.physics_engine.update()
@@ -78,7 +88,7 @@ class FinishView(arcade.View):
             self.window.width / 2, self.window.height / 2 + 100,
             arcade.color.WHITE, font_name='Lucida console', font_size=15, anchor_x="center", batch=self.batch)
 
-        self.main_text3 = arcade.Text(f"Собрано элементов корабля всего: {len(self.coll_items) + len(self.items)}/10",
+        self.main_text3 = arcade.Text(f"Собрано элементов корабля всего: {len(self.items)}/10",
                                       self.window.width / 2, self.window.height / 2 + 50,
                                       arcade.color.WHITE, font_size=15, anchor_x="center", batch=self.batch)
         self.space_text = arcade.Text("Чтобы сбросить прогресс, нажмите P", self.window.width / 2,
@@ -98,13 +108,25 @@ class FinishView(arcade.View):
     def on_key_press(self, key, modifiers):
         if key == arcade.key.ESCAPE:
             arcade.stop_sound(self.background_player)
+            for x in self.coll_items:
+                if x not in self.items:
+                    self.items.append(x)
+                    query = f"INSERT INTO collected_items(type) VALUES ('{x}')"
+                    cur = self.con.cursor()
+                    cur.execute(query)
+                    self.con.commit()
             from MenuView import MenuView
-            menu_view = MenuView(items=self.items)
+            menu_view = MenuView()
             menu_view.setup()
             self.window.show_view(menu_view)
         elif key == arcade.key.P:
             arcade.stop_sound(self.background_player)
-            ...
+            open('planetfall_db.sqlite').close()
+            os.remove('planetfall_db.sqlite')
+            from MenuView import MenuView
+            menu_view = MenuView()
+            menu_view.setup()
+            self.window.show_view(menu_view)
         elif key == arcade.key.Q:
             state = {'level': self.level,
                      'player': self.player,

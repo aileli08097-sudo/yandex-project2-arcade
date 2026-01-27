@@ -66,8 +66,8 @@ class Level(arcade.View):
         self.player_list = arcade.SpriteList()
 
         self.enemies_list = saved_state.get('enemies', arcade.SpriteList())
-        self.items_list = saved_state.get('items', arcade.SpriteList())
-        self.coll_items_list = saved_state.get('coll_items', arcade.SpriteList())
+        self.items_list = saved_state.get('items', [])
+        self.coll_items_list = saved_state.get('coll_items', [])
         self.dont_items_list = arcade.SpriteList()
         self.textures = [f'images/Alien{self.player_num}/alien{self.player_num}_{i}.png' for i in range(10)]
 

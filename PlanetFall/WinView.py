@@ -1,10 +1,14 @@
 import arcade
+import sqlite3
 from pyglet.graphics import Batch
+
+from PlanetFall.items import Item
 
 
 class WinView(arcade.View):
     def __init__(self, game_view, time, state):
         super().__init__()
+        self.con = sqlite3.connect('planetfall_db.sqlite')
         self.background_music = None
         self.background_player = None
         self.time = time
@@ -20,13 +24,14 @@ class WinView(arcade.View):
         shadow.center_x = self.width // 2
         shadow.center_y = self.height // 2 + 200
         self.all_sprites.append(shadow)
-        for item in self.items:
-            if item.name == 'petrol1':
+        for x in self.items:
+            item = Item(f'images/items/item_{x}.png', typ=x)
+            if x == 8:
                 item.scale = 0.1
                 item.center_x = self.width // 2 + 100
                 item.center_y = self.height // 2 + 200
                 self.all_sprites.append(item)
-            elif item.name == 'petrol2':
+            elif x == 9:
                 item.scale = 0.1
                 item.center_x = self.width // 2 + 150
                 item.center_y = self.height // 2 + 200
@@ -36,13 +41,14 @@ class WinView(arcade.View):
                 item.center_x = self.width // 2
                 item.center_y = self.height // 2 + 200
                 self.all_sprites.append(item)
-        for item in self.coll_items:
-            if item.name == 'petrol1':
+        for x in self.coll_items:
+            item = Item(f'images/items/item_{x}.png', typ=x)
+            if x == 8:
                 item.scale = 0.1
                 item.center_x = self.width // 2 + 100
                 item.center_y = self.height // 2 + 200
                 self.all_sprites.append(item)
-            elif item.name == 'petrol2':
+            elif x == 9:
                 item.scale = 0.1
                 item.center_x = self.width // 2 + 150
                 item.center_y = self.height // 2 + 200
@@ -53,6 +59,7 @@ class WinView(arcade.View):
                 item.center_y = self.height // 2 + 200
                 item.angle = 0
                 self.all_sprites.append(item)
+
 
     def on_draw(self):
         self.clear()
@@ -88,14 +95,34 @@ class WinView(arcade.View):
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.ESCAPE:
+            for x in self.coll_items:
+                if x not in self.items:
+                    self.items.append(x)
+                    query = f"INSERT INTO collected_items(type) VALUES ('{x}')"
+                    cur = self.con.cursor()
+                    cur.execute(query)
+                    self.con.commit()
+            query = f"INSERT INTO opened_levels(name) VALUES ('{["Первый", "Второй", "Третий", "Четвёртый", "Пятый"][self.level + 1]}')"
+            cur = self.con.cursor()
+            cur.execute(query)
+            self.con.commit()
             arcade.stop_sound(self.background_player)
             from MenuView import MenuView
-            menu_view = MenuView(items=self.items)
+            menu_view = MenuView()
             menu_view.setup()
             self.window.show_view(menu_view)
         elif key == arcade.key.P:
             for x in self.coll_items:
-                self.items.append(x)
+                if x not in self.items:
+                    self.items.append(x)
+                    query = f"INSERT INTO collected_items(type) VALUES ('{x}')"
+                    cur = self.con.cursor()
+                    cur.execute(query)
+                    self.con.commit()
+            query = f"INSERT INTO opened_levels(name) VALUES ('{["Первый", "Второй", "Третий", "Четвёртый", "Пятый"][self.level + 1]}')"
+            cur = self.con.cursor()
+            cur.execute(query)
+            self.con.commit()
             state = {'level': self.level + 1,
                      'player': self.player,
                      'player_num': self.player_num,

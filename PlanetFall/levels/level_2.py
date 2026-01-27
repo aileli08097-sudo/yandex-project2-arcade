@@ -1,5 +1,7 @@
 import arcade
 import random
+
+from PlanetFall.items import Item
 from PlanetFall.levels.level import Level, DustParticle
 from PlanetFall.constants import *
 
@@ -20,7 +22,7 @@ class Level_2(Level):
 
     def setup(self):
         super().setup()
-        self.gravity = 0.7
+        self.gravity = 0.6
         self.jump_speed = 20
         self.player_speed = PLAYER_SPEED
         self.enemy_speed = 70
@@ -36,14 +38,12 @@ class Level_2(Level):
         self.spinner_list = self.scene['spinner']
         self.collision_list = self.scene['collision']
 
-        item = arcade.Sprite('images/items/petrol.png', 0.5)
-        item.name = 'petrol1'
+        item = Item('images/items/item_8.png', 0.5, 8)
         item.scale = 0.1
         item.center_x = 47 * 21 * 3
         item.center_y = 19.5 * 21 * 3
         self.dont_items_list.append(item)
-        item = arcade.Sprite('images/items/petrol.png', 0.5)
-        item.name = 'petrol2'
+        item = Item('images/items/item_9.png', 0.5, 9)
         item.center_x = 79 * 21 * 3
         item.center_y = 18.5 * 21 * 3
         item.scale = 0.1
@@ -66,11 +66,16 @@ class Level_2(Level):
             self.enemies_list.append(self.bat2)
 
             self.spider = arcade.Sprite('images/enemies/spider_walk1.png')
-            self.spider.typ = 'spider'
             self.spider.center_x = random.randint(46 * 21 * 3, 54 * 21 * 3)
             self.spider.center_y = 11 * 21 * 3 + self.spider.height // 2
             self.spider.speed = self.enemy_speed * random.choice([-1, 1])
             self.enemies_list.append(self.spider)
+
+            self.spider1 = arcade.Sprite('images/enemies/spider_walk1.png')
+            self.spider1.center_x = random.randint(46 * 21 * 3, 54 * 21 * 3)
+            self.spider1.center_y = 11 * 21 * 3 + self.spider1.height // 2
+            self.spider1.speed = self.enemy_speed * random.choice([-1, 1])
+            self.enemies_list.append(self.spider1)
 
         self.physics_engine = arcade.PhysicsEnginePlatformer(
             player_sprite=self.player,
@@ -150,6 +155,18 @@ class Level_2(Level):
         else:
             self.spider.texture = arcade.load_texture(self.spiders[self.i]).flip_horizontally()
 
+        if self.spider1.left < 46 * 21 * 3:
+            self.spider1.left = 46 * 21 * 3 + 3
+            self.spider1.speed *= -1
+        elif self.spider1.right > 54 * 21 * 3:
+            self.spider1.right = 54 * 21 * 3 - 3
+            self.spider1.speed *= -1
+        self.spider1.center_x += self.spider1.speed * delta_time
+        if self.spider1.speed < 0:
+            self.spider1.texture = arcade.load_texture(self.spiders[self.i])
+        else:
+            self.spider1.texture = arcade.load_texture(self.spiders[self.i]).flip_horizontally()
+
         move = 0
         if self.left and not self.right:
             move = -self.player_speed
@@ -228,7 +245,7 @@ class Level_2(Level):
 
         elif self.physics_engine.can_jump(y_distance=6) and self.was_jumping:
             self.land_timer += delta_time
-            if self.land_timer <= 0.15:
+            if self.land_timer <= 0.11:
                 if self.left:
                     self.player.texture = arcade.load_texture(self.textures[9]).flip_horizontally()
                 else:
@@ -254,7 +271,7 @@ class Level_2(Level):
         for item in check:
             self.collect_sound.play(volume=1)
             item.remove_from_sprite_lists()
-            self.coll_items_list.append(item)
+            self.coll_items_list.append(item.typ)
 
         target_x = self.player.center_x
         target_y = self.player.center_y

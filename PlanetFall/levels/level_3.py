@@ -1,5 +1,7 @@
 import arcade
 import random
+
+from PlanetFall.items import Item
 from PlanetFall.levels.level import Level, DustParticle
 from PlanetFall.constants import *
 
@@ -28,14 +30,12 @@ class Level_3(Level):
         self.juice_list = self.scene['juice']
         self.collision_list = self.scene['collision']
 
-        item = arcade.Sprite('images/items/item_4.png', 0.5)
-        item.name = 'item'
+        item = Item('images/items/item_4.png', 0.5, 4)
         item.center_x = 14 * 21 * 3 + 50
         item.center_y = 26.5 * 21 * 3 + 40
         item.angle = 90
         self.dont_items_list.append(item)
-        item = arcade.Sprite('images/items/item_5.png', 0.5)
-        item.name = 'item'
+        item = Item('images/items/item_5.png', 0.5, 5)
         item.center_x = 50 * 21 * 3
         item.center_y = 29 * 21 * 3
         self.dont_items_list.append(item)
@@ -229,7 +229,7 @@ class Level_3(Level):
 
         elif self.physics_engine.can_jump(y_distance=6) and self.was_jumping:
             self.land_timer += delta_time
-            if self.land_timer <= 0.15:
+            if self.land_timer <= 0.11:
                 if self.left:
                     self.player.texture = arcade.load_texture(self.textures[9]).flip_horizontally()
                 else:
@@ -255,7 +255,7 @@ class Level_3(Level):
         for item in check:
             self.collect_sound.play(volume=1)
             item.remove_from_sprite_lists()
-            self.coll_items_list.append(item)
+            self.coll_items_list.append(item.typ)
 
         target_x = self.player.center_x
         target_y = self.player.center_y

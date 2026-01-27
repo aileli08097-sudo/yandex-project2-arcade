@@ -1,5 +1,7 @@
 import arcade
 import random
+
+from PlanetFall.items import Item
 from PlanetFall.levels.level import Level, DustParticle
 from PlanetFall.constants import *
 
@@ -28,13 +30,11 @@ class Level_4(Level):
         self.mushrooms_list = self.scene['mushrooms']
         self.collision_list = self.scene['collision']
 
-        item = arcade.Sprite('images/items/item_6.png')
-        item.name = 'item'
+        item = Item('images/items/item_6.png', typ=6)
         item.center_x = 25 * 21 * 3
         item.center_y = 27.7 * 21 * 3
         self.dont_items_list.append(item)
-        item = arcade.Sprite('images/items/item_7.png', 0.5)
-        item.name = 'item'
+        item = Item('images/items/item_7.png', 0.5, 7)
         item.center_x = 64 * 21 * 3
         item.center_y = 31 * 21 * 3
         self.dont_items_list.append(item)
@@ -65,7 +65,7 @@ class Level_4(Level):
                 self.enemies_list.append(fly)
 
             for i in range(2):
-                for j in range(2):
+                for j in range(1):
                     mouse = arcade.Sprite('images/enemies/mouse.png')
                     mouse.typ = 'mouse'
                     mouse.x = [(71 * 21 * 3, 83 * 21 * 3),
@@ -206,7 +206,7 @@ class Level_4(Level):
 
         elif self.physics_engine.can_jump(y_distance=6) and self.was_jumping:
             self.land_timer += delta_time
-            if self.land_timer <= 0.15:
+            if self.land_timer <= 0.11:
                 if self.left:
                     self.player.texture = arcade.load_texture(self.textures[9]).flip_horizontally()
                 else:
@@ -232,7 +232,7 @@ class Level_4(Level):
         for item in check:
             self.collect_sound.play(volume=1)
             item.remove_from_sprite_lists()
-            self.coll_items_list.append(item)
+            self.coll_items_list.append(item.typ)
 
         target_x = self.player.center_x
         target_y = self.player.center_y
