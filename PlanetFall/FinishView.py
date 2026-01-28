@@ -55,8 +55,8 @@ class FinishView(arcade.View):
 
         self.player_list = arcade.SpriteList()
         self.player = arcade.Sprite(f'images/Alien{self.player_num}/alien{self.player_num}_4.png')
-        self.player.center_x = self.window.width // 2 - 100
-        self.player.center_y = self.window.height // 2
+        self.player.center_x = self.window.width // 2
+        self.player.center_y = self.window.height // 2 - 70
         self.player_list.append(self.player)
         self.physics_engine = arcade.PhysicsEnginePlatformer(
             player_sprite=self.player,
