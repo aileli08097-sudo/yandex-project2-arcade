@@ -29,7 +29,7 @@
  </objectgroup>
  <layer id="5" name="background" width="101" height="54">
   <data encoding="base64" compression="zlib">
-   eJzt0dEJwjAUBdDat4SLCM7gAO4huJ9+iuAIOohf/qaxkJYmSPEcCFx4yfu46ToAAAAAAAAAAACYZhvjealDTD/w7/ZRzgztGndzjHJeo3f/na/9+N25Tkk3l0o7U+co55/b1FnzatDfs8HOJW5ZV49Cd/dsnr8fqPQPAAAAAAAAAAAAtPEBIWsPug==
+   eJzt0UsKwjAUBdDabMKduAfnrqOCC9ShCC5BN9KJUxsT8vxRxHOg8CCvt+Wm6wAAAAAAAAAAACBmmcrzu9Yp/sC/W6X2zNS3u9mk9vyLxv5xPvTl3Wft7rrZfyizll+bZ7eIrW0b/3wN9jcUcmrZl0JmbbeU+6raN45ZV+dGd6fsPH9/IngPAAAAAAAAAAAAzOMGAUESZw==
   </data>
  </layer>
  <layer id="8" name="mushrooms" width="101" height="54">
