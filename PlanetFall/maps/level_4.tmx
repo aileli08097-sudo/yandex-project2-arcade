@@ -8,7 +8,7 @@
  </layer>
  <layer id="4" name="ground" width="101" height="54">
   <data encoding="base64" compression="zlib">
-   eJzt1FtOwkAUgOFp2QBBcBvsg6DrMIi3bWGCJhKsF9xEwxt78ILKqwfbh8mEKVNq0478f/JFGuyFcwJKEREREREREREREREREREREZEvDQKlTlND7fVZUPWT1atzmcdF6lJ7fVXynMbs4beTRvb7Nxvm9CIW2vGBXKNt0dlyfb192klT5tJ10Nowv1uHOf3VTmz36jXc+dBM+b2Tvpw/DZW6dxCFyf/7UJGduPyeHJX8Pcmzkzo3M47v5HknFocyt1j+Hu+4k3UPcv6j4SlM9uWa7V4+78Tcg565k2fjOLZ8nqI7ydN/3ElWr/K8bxneLZ/n2nEnX3L+t2GVc0Yjy70+5DpLB58V7yRC7cwBAAAAAAAAAAAAAAAAQPwAUjpFtw==
+   eJzt1FlOAkEQgOFmuICR5RpcRDkHERe4FiRoIkFWL4H4xB0ABX21WB46HXqsEcjM4P8nX2SCs1AVMIaIiIiIiIiIiIiIiIiIiIiI0tJNxpjqzq31+i4T95Mlq3uZx8NOzXpdP/GcWuxhUyUb/v7jnjm9iql1nJNr5D0Kv1zf7j/t5ELmUlK43DO/J8WcjrUT373eAmMmCu+B/l5xNjLp3smVnN+RWb8odIPt/6ehQ3ai+T25PvH3JMpOktzIOX6W5217FGVuY/lb/uNO1vXk/L5jEGz3pc13rzTvxN2DnbuToXM89nyeQ3cSpXPcSVgzed55iIXn8zSVO1nJ+V+O74gzanju9SHX+VRYxryTLhJnAgAAAAAAAAAAAAAAAADiBzAKS6U=
   </data>
  </layer>
  <objectgroup id="7" name="moving platforms">
@@ -29,7 +29,7 @@
  </objectgroup>
  <layer id="5" name="background" width="101" height="54">
   <data encoding="base64" compression="zlib">
-   eJzt0cEJgzAABVBrlugiQifpHoXuZ49S6Ah2EE9eNQqpmFiE904fkvzDT1UBAAAAAAAAAADAb65hPQPHuYV0Zq4pvM09pPMZDfUyv+r1u1s9Jtu0mTqnniGd/+6Sp+ZbYL++QOceXbTVJ7HdOzqP389k+gcAAAAAAAAAAADKGAHDXgxr
+   eJzt0dEJwjAUBdDat4SLCM7gAO4huJ9+iuAIOohf/qaxkJYmSPEcCFx4yfu46ToAAAAAAAAAAACYZhvjealDTD/w7/ZRzgztGndzjHJeo3f/na/9+N25Tkk3l0o7U+co55/b1FnzatDfs8HOJW5ZV49Cd/dsnr8fqPQPAAAAAAAAAAAAtPEBIWsPug==
   </data>
  </layer>
  <layer id="8" name="mushrooms" width="101" height="54">

@@ -15,7 +15,6 @@ class FinishView(arcade.View):
         self.background_player = None
         self.time = time
         self.level = state['level']
-        self.player = state['player']
         self.all_sprites = arcade.SpriteList()
         self.player_num = state['player_num']
         self.items = state['items']
@@ -54,9 +53,11 @@ class FinishView(arcade.View):
         self.items += self.coll_items
         self.items = list(set(self.items))
 
-        self.player.center_x = self.window.width // 2
+        self.player_list = arcade.SpriteList()
+        self.player = arcade.Sprite(f'images/Alien{self.player_num}/alien{self.player_num}_4.png')
+        self.player.center_x = self.window.width // 2 - 100
         self.player.center_y = self.window.height // 2
-        self.all_sprites.append(self.player)
+        self.player_list.append(self.player)
         self.physics_engine = arcade.PhysicsEnginePlatformer(
             player_sprite=self.player,
             gravity_constant=0.7,
@@ -70,6 +71,7 @@ class FinishView(arcade.View):
         self.clear()
         self.ground.draw()
         self.all_sprites.draw()
+        self.player_list.draw()
         arcade.draw_rect_filled(
             arcade.rect.XYWH(self.window.width // 2,
                              self.window.height // 2,
@@ -80,9 +82,16 @@ class FinishView(arcade.View):
         self.main_text = arcade.Text("ПОБЕДА", self.window.width / 2, self.window.height / 2,
                                      arcade.color.WHITE, font_name='Times New Roman', font_size=30, anchor_x="center",
                                      batch=self.batch)
-        self.main_text2 = arcade.Text("Вы прошли все уровни!", self.window.width / 2, self.window.height / 2 - 50,
-                                      arcade.color.WHITE, font_name='Lucida console', font_size=15, anchor_x="center",
-                                      batch=self.batch)
+        if len(self.items) == 10:
+            self.main_text2 = arcade.Text("Вы прошли все уровни и собрали все части корабля!", self.window.width / 2, self.window.height / 2 - 50,
+                                          arcade.color.WHITE, font_name='Lucida console', font_size=15, anchor_x="center",
+                                          batch=self.batch)
+        else:
+            self.main_text2 = arcade.Text("Вы прошли все уровни, но не собрали все части корабля!", self.window.width / 2,
+                                          self.window.height / 2 - 50,
+                                          arcade.color.WHITE, font_name='Lucida console', font_size=15,
+                                          anchor_x="center",
+                                          batch=self.batch)
         self.main_text1 = arcade.Text(
             f"Время прохождения: {self.time} сек  Собрано элементов корабля за этот уровень: {len(self.coll_items)}/2",
             self.window.width / 2, self.window.height / 2 + 100,
@@ -121,7 +130,7 @@ class FinishView(arcade.View):
             self.window.show_view(menu_view)
         elif key == arcade.key.P:
             arcade.stop_sound(self.background_player)
-            open('planetfall_db.sqlite').close()
+            self.con.close()
             os.remove('planetfall_db.sqlite')
             from MenuView import MenuView
             menu_view = MenuView()

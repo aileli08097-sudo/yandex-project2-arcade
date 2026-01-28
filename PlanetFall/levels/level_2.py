@@ -23,7 +23,7 @@ class Level_2(Level):
     def setup(self):
         super().setup()
         self.gravity = 0.6
-        self.jump_speed = 20
+        self.jump_speed = 17
         self.player_speed = PLAYER_SPEED
         self.enemy_speed = 70
 
@@ -255,6 +255,12 @@ class Level_2(Level):
                 self.create_dust_effect()
                 self.land_timer = 0
                 self.was_jumping = False
+
+        elif self.was_jumping and not self.physics_engine.can_jump(y_distance=6):
+            if self.left:
+                self.player.texture = arcade.load_texture(self.textures[3]).flip_horizontally()
+            else:
+                self.player.texture = arcade.load_texture(self.textures[3])
 
 
         elif not self.is_jumping and not self.was_jumping and not on_ladder:

@@ -248,6 +248,12 @@ class Level_0(Level):
                 self.land_timer = 0
                 self.was_jumping = False
 
+        elif self.was_jumping and not self.physics_engine.can_jump(y_distance=6):
+            if self.left:
+                self.player.texture = arcade.load_texture(self.textures[3]).flip_horizontally()
+            else:
+                self.player.texture = arcade.load_texture(self.textures[3])
+
 
         elif not self.is_jumping and not self.was_jumping and not on_ladder and not arcade.check_for_collision_with_list(
                 self.player,

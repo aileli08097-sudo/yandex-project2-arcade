@@ -182,7 +182,7 @@ class Level(arcade.View):
             self.up = True
         elif key in (arcade.key.DOWN, arcade.key.S):
             self.down = True
-        elif key == arcade.key.SPACE:
+        if key == arcade.key.SPACE:
             self.is_jumping = True
             self.jump_buffer_timer = JUMP_BUFFER
 

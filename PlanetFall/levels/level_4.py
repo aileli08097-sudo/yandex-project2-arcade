@@ -19,9 +19,9 @@ class Level_4(Level):
     def setup(self):
         super().setup()
         self.gravity = 0.7
-        self.jump_speed = 20
-        self.player_speed = PLAYER_SPEED
-        self.enemy_speed = 55
+        self.jump_speed = 22
+        self.player_speed = 5
+        self.enemy_speed = 52
 
         self.background_list = self.scene['background']
         self.background2_list = self.scene['background2']
@@ -65,7 +65,7 @@ class Level_4(Level):
                 self.enemies_list.append(fly)
 
             for i in range(2):
-                for j in range(1):
+                for j in range(3):
                     mouse = arcade.Sprite('images/enemies/mouse.png')
                     mouse.typ = 'mouse'
                     mouse.x = [(71 * 21 * 3, 83 * 21 * 3),
@@ -216,6 +216,12 @@ class Level_4(Level):
                 self.create_dust_effect()
                 self.land_timer = 0
                 self.was_jumping = False
+
+        elif self.was_jumping and not self.physics_engine.can_jump(y_distance=6):
+            if self.left:
+                self.player.texture = arcade.load_texture(self.textures[3]).flip_horizontally()
+            else:
+                self.player.texture = arcade.load_texture(self.textures[3])
 
 
         elif not self.is_jumping and not self.was_jumping and not on_ladder:
