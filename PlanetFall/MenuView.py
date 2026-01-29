@@ -148,7 +148,6 @@ class MenuView(arcade.View):
         for row in res:
             self.option_list1.append(row[0])
 
-
         self.items = []
         cur = self.con.cursor()
         query = 'SELECT type FROM collected_items'

@@ -60,7 +60,6 @@ class WinView(arcade.View):
                 item.angle = 0
                 self.all_sprites.append(item)
 
-
     def on_draw(self):
         self.clear()
         self.background_view.on_draw()

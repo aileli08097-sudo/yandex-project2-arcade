@@ -152,7 +152,7 @@ class Level_4(Level):
 
         if arcade.check_for_collision_with_list(self.player,
                                                 self.mushrooms_list) or arcade.check_for_collision_with_list(
-                self.player, self.enemies_list):
+            self.player, self.enemies_list):
             self.game_over = True
             state = {'level': self.level,
                      'player': self.player,

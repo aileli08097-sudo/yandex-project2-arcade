@@ -83,11 +83,14 @@ class FinishView(arcade.View):
                                      arcade.color.WHITE, font_name='Times New Roman', font_size=30, anchor_x="center",
                                      batch=self.batch)
         if len(self.items) == 10:
-            self.main_text2 = arcade.Text("Вы прошли все уровни и собрали все части корабля!", self.window.width / 2, self.window.height / 2 - 50,
-                                          arcade.color.WHITE, font_name='Lucida console', font_size=15, anchor_x="center",
+            self.main_text2 = arcade.Text("Вы прошли все уровни и собрали все части корабля!", self.window.width / 2,
+                                          self.window.height / 2 - 50,
+                                          arcade.color.WHITE, font_name='Lucida console', font_size=15,
+                                          anchor_x="center",
                                           batch=self.batch)
         else:
-            self.main_text2 = arcade.Text("Вы прошли все уровни, но не собрали все части корабля!", self.window.width / 2,
+            self.main_text2 = arcade.Text("Вы прошли все уровни, но не собрали все части корабля!",
+                                          self.window.width / 2,
                                           self.window.height / 2 - 50,
                                           arcade.color.WHITE, font_name='Lucida console', font_size=15,
                                           anchor_x="center",

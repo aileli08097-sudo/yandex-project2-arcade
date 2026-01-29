@@ -88,7 +88,6 @@ class Level_1(Level):
                                  )
         self.world_camera.use()
 
-
         self.dust_particles.draw()
         self.ground_list.draw()
         self.water_list.draw()
